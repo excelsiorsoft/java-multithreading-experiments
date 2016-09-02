@@ -2,15 +2,7 @@ package com.excelsiorsoft.hardware_math.hardware.cache;
 
 public class CpuCacheSizeDetector {
 
-	/*public static void main(String[] args) {
-		byte[] array = new byte[64 * 1024]; // this is 64 kilobytes
 
-		for (int testIndex = 0; testIndex < 10; testIndex++) {
-			testFunction(array);
-			System.out.println("-------------------");
-		}
-
-	}*/
 
 	public /*static*/ void testFunction(byte[] array, int s) {
 
