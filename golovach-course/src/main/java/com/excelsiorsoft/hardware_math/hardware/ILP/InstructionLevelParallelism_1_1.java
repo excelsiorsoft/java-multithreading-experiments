@@ -3,8 +3,9 @@ package com.excelsiorsoft.hardware_math.hardware.ILP;
 public class InstructionLevelParallelism_1_1 {
 
 	public static void main(String ... args){
-		
-		new InstructionLevelParallelism_1_1().squaring();
+		for(int i =0; i<10; i++) {
+			new InstructionLevelParallelism_1_1().squaring();
+		}
 	}
 	
 	public long squaring() {
@@ -15,7 +16,7 @@ public class InstructionLevelParallelism_1_1 {
 			
 			//check bytecode for below to see why timing differs
 			d0 *= d0;  			//faster
-			//d0 *= d0 * d0;  	//slower
+			//d0 = d0 * d0;  	//slower
 		}
 		
 		long t1 = System.currentTimeMillis();
