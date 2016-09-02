@@ -1,6 +1,6 @@
 package com.excelsiorsoft.hardware_math.hardware.cache;
 
-public class CacheLineSizeDetector {
+public class CpuCacheSizeDetector {
 
 	public static void main(String[] args) {
 		byte[] array = new byte[64 * 1024]; // this is 64 kilobytes
