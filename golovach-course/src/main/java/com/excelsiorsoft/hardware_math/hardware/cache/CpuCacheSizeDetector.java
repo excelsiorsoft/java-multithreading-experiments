@@ -1,8 +1,8 @@
 package com.excelsiorsoft.hardware_math.hardware.cache;
 
-public class CacheLineSizeDetector {
+public class CpuCacheSizeDetector {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		byte[] array = new byte[64 * 1024]; // this is 64 kilobytes
 
 		for (int testIndex = 0; testIndex < 10; testIndex++) {
@@ -10,11 +10,12 @@ public class CacheLineSizeDetector {
 			System.out.println("-------------------");
 		}
 
-	}
+	}*/
 
-	private static void testFunction(byte[] array) {
+	public /*static*/ void testFunction(byte[] array, int s) {
 
-		for (int len = 8192; len <= array.length; len += 8192) {// start with
+		int size = s*1024;
+		for (int len = size; len <= array.length; len += size) {// start with
 																// 8kb, and then
 																// add addt'l
 																// 8kb on each
