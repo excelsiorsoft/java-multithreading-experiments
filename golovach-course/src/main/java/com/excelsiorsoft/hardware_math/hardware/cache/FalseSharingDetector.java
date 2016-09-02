@@ -1,4 +1,4 @@
-package com.excelsiorsoft.hardware_math.hardware.false_sharing;
+package com.excelsiorsoft.hardware_math.hardware.cache;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
