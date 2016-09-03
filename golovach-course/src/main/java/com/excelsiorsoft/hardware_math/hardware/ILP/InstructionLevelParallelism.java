@@ -1,10 +1,10 @@
 package com.excelsiorsoft.hardware_math.hardware.ILP;
 
-public class InstructionLevelParallelism_1_1 {
+public class InstructionLevelParallelism {
 
 	public static void main(String ... args){
 		for(int i =0; i<10; i++) {
-			new InstructionLevelParallelism_1_1().squaring();
+			new InstructionLevelParallelism().squaring();
 		}
 	}
 	

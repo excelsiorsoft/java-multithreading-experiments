@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class InstructionLevelParallelism_1_1Test {
+public class InstructionLevelParallelismTest {
 
-	InstructionLevelParallelism_1_1 cut = new InstructionLevelParallelism_1_1();
+	InstructionLevelParallelism cut = new InstructionLevelParallelism();
 	
 	@Test
 	public void testSquaring() {
