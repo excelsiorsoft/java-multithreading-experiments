@@ -42,8 +42,10 @@ public class SynchronizedWith {
 
 			@Override
 			public void run() {
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+non_volatile_run);
 				System.out.println(Thread.currentThread().getName() + " setting non_volatile_run to false");
 				non_volatile_run = false;
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+non_volatile_run);
 				
 			}});
 		
@@ -61,6 +63,7 @@ public void isAliveOnVolatile() {
 
 			@Override
 			public void run() {
+				System.out.println(Thread.currentThread().getName() + " run:"+run);
 				System.out.println(Thread.currentThread().getName() + " setting run to false");
 				run = false;
 				System.out.println(Thread.currentThread().getName() + " run:"+run);
@@ -82,8 +85,10 @@ public void isAliveOnVolatile() {
 
 			@Override
 			public void run() {
-				System.out.println(Thread.currentThread().getName() + " setting run to false");
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+run);
+				System.out.println(Thread.currentThread().getName() + " setting non_volatile_run to false");
 				non_volatile_run = false;
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+run);
 				
 			}});
 		
@@ -92,6 +97,27 @@ public void isAliveOnVolatile() {
 		System.out.println(Thread.currentThread().getName() + " before joined; non_volatile_run: "+non_volatile_run);
 		newThread.join();
 			System.out.println(Thread.currentThread().getName() + " after joined; non_volatile_run: "+non_volatile_run);
+		
+	}
+	
+public void joinOnVolatile() throws Exception {
+		
+		Thread newThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println(Thread.currentThread().getName() + " run:"+run);
+				System.out.println(Thread.currentThread().getName() + " setting run to false");
+				run = false;
+				System.out.println(Thread.currentThread().getName() + " run:"+run);
+				
+			}});
+		
+		newThread.start();
+		
+		System.out.println(Thread.currentThread().getName() + " before joined; run: "+run);
+		newThread.join();
+			System.out.println(Thread.currentThread().getName() + " after joined; run: "+run);
 		
 	}
 	

@@ -27,5 +27,10 @@ public class SynchronizedWithTest {
 	public void testJoinOnNonVolatile() throws Exception {
 		cut.joinOnNonVolatile();
 	}
+	
+	@Test
+	public void testJoinOnVolatile() throws Exception {
+		cut.joinOnVolatile();
+	}
 
 }
