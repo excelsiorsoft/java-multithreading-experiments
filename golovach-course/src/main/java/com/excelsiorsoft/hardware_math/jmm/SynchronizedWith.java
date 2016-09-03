@@ -1,10 +1,12 @@
-package com.excelsiorsoft.hardware_math.jmm;
+package com.excelsiorsoft.hardware_math.jmm; 
 
 public class SynchronizedWith {
 
 	 private int data = 0;
 	 private volatile boolean run = true;
 	 private volatile boolean non_volatile_run = true;
+	 
+	 private Object lock =new Object();
 
 	public  void volatileWrite() throws Exception {
 		
@@ -85,18 +87,20 @@ public void isAliveOnVolatile() {
 
 			@Override
 			public void run() {
-				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+run);
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+non_volatile_run);
 				System.out.println(Thread.currentThread().getName() + " setting non_volatile_run to false");
 				non_volatile_run = false;
-				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+run);
+				System.out.println(Thread.currentThread().getName() + " non_volatile_run:"+non_volatile_run);
 				
 			}});
 		
 		newThread.start();
 		
 		System.out.println(Thread.currentThread().getName() + " before joined; non_volatile_run: "+non_volatile_run);
-		newThread.join();
-			System.out.println(Thread.currentThread().getName() + " after joined; non_volatile_run: "+non_volatile_run);
+		
+		newThread.join();//this is blocking - that's why it's much shorter than 'isAlive' output
+		
+		System.out.println(Thread.currentThread().getName() + " after joined; non_volatile_run: "+non_volatile_run);
 		
 	}
 	
@@ -116,9 +120,51 @@ public void joinOnVolatile() throws Exception {
 		newThread.start();
 		
 		System.out.println(Thread.currentThread().getName() + " before joined; run: "+run);
-		newThread.join();
-			System.out.println(Thread.currentThread().getName() + " after joined; run: "+run);
+		
+		newThread.join(); //this is blocking - that's why it's much shorter than 'isAlive' output
+		
+		System.out.println(Thread.currentThread().getName() + " after joined; run: "+run);
 		
 	}
+
+public void synchronizationInNewThread() throws Exception {
+	
+	Thread newThread = new Thread(new Runnable() {
+
+		@Override
+			public void run() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+				synchronized (lock) {
+					System.out.println(Thread.currentThread().getName()
+							+ " non_volatile_run:" + non_volatile_run);
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " setting non_volatile_run to false");
+					
+					non_volatile_run = false;
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " non_volatile_run:" + non_volatile_run);
+				}
+			}});
+	
+	newThread.start();
+	
+	while(true) {
+		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
+		
+		if(non_volatile_run == false) {
+		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run+"\nExiting...");
+		System.exit(0);
+		}
+	}
+	
+	
+}
 	
 }

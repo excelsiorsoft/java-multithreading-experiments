@@ -20,7 +20,7 @@ public class SynchronizedWithTest {
 	
 	@Test
 	public void testIsAliveOnVolatile() throws Exception {
-		cut.isAliveOnVolatile();;
+		cut.isAliveOnVolatile();
 	}
 	
 	@Test
@@ -31,6 +31,11 @@ public class SynchronizedWithTest {
 	@Test
 	public void testJoinOnVolatile() throws Exception {
 		cut.joinOnVolatile();
+	}
+	
+	@Test
+	public void testSynchronizationInNewThread() throws Exception {
+		cut.synchronizationInNewThread();
 	}
 
 }
