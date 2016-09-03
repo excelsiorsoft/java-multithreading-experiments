@@ -9,8 +9,13 @@ public class SynchronizedWithTest {
 	SynchronizedWith cut = new SynchronizedWith();
 	
 	@Test
-	public void test() throws Exception {
-		cut.main();
+	public void testvolatileWrite() throws Exception {
+		cut.volatileWrite();
+	}
+	
+	@Test
+	public void testIsAlive() throws Exception {
+		cut.isAlive();;
 	}
 
 }
