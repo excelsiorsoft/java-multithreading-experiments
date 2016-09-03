@@ -49,8 +49,27 @@ public class SynchronizedWith {
 		newThread.start();
 		
 		while(newThread.isAlive()) {
-			System.out.println(Thread.currentThread().getName() + "run: "+run);
+			System.out.println(Thread.currentThread().getName() + "; run: "+run);
 		}
+	}
+	
+	public void join() throws Exception {
+		
+		Thread newThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println(Thread.currentThread().getName() + " setting run to false");
+				run = false;
+				
+			}});
+		
+		newThread.start();
+		
+		System.out.println(Thread.currentThread().getName() + " before joined; run: "+run);
+		newThread.join();
+			System.out.println(Thread.currentThread().getName() + " after joined; run: "+run);
+		
 	}
 	
 }

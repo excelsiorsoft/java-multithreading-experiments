@@ -17,5 +17,10 @@ public class SynchronizedWithTest {
 	public void testIsAlive() throws Exception {
 		cut.isAlive();;
 	}
+	
+	@Test
+	public void testJoin() throws Exception {
+		cut.join();
+	}
 
 }
