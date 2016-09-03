@@ -14,13 +14,18 @@ public class SynchronizedWithTest {
 	}
 	
 	@Test
-	public void testIsAlive() throws Exception {
-		cut.isAlive();;
+	public void testIsAliveOnNonVolatile() throws Exception {
+		cut.isAliveOnNonVolatile();;
 	}
 	
 	@Test
-	public void testJoin() throws Exception {
-		cut.join();
+	public void testIsAliveOnVolatile() throws Exception {
+		cut.isAliveOnVolatile();;
+	}
+	
+	@Test
+	public void testJoinOnNonVolatile() throws Exception {
+		cut.joinOnNonVolatile();
 	}
 
 }

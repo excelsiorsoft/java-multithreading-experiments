@@ -4,6 +4,7 @@ public class SynchronizedWith {
 
 	 private int data = 0;
 	 private volatile boolean run = true;
+	 private volatile boolean non_volatile_run = true;
 
 	public  void volatileWrite() throws Exception {
 		
@@ -35,25 +36,26 @@ public class SynchronizedWith {
 	}
 	
 	
-	public void isAlive() {
+	public void isAliveOnNonVolatile() {
 		
 		Thread newThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				System.out.println(Thread.currentThread().getName() + " setting run to false");
-				run = false;
+				System.out.println(Thread.currentThread().getName() + " setting non_volatile_run to false");
+				non_volatile_run = false;
 				
 			}});
 		
 		newThread.start();
 		
-		while(newThread.isAlive()) {
-			System.out.println(Thread.currentThread().getName() + "; run: "+run);
+		while(newThread.isAlive()) {//isAlive serves as a synchronization-with point
+			System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
 		}
+		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
 	}
 	
-	public void join() throws Exception {
+public void isAliveOnVolatile() {
 		
 		Thread newThread = new Thread(new Runnable() {
 
@@ -61,14 +63,35 @@ public class SynchronizedWith {
 			public void run() {
 				System.out.println(Thread.currentThread().getName() + " setting run to false");
 				run = false;
+				System.out.println(Thread.currentThread().getName() + " run:"+run);
 				
 			}});
 		
 		newThread.start();
 		
-		System.out.println(Thread.currentThread().getName() + " before joined; run: "+run);
+		while(newThread.isAlive()) {//isAlive serves as a synchronization-with point
+			System.out.println(Thread.currentThread().getName() + "; run: "+run);
+		}
+		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
+		System.out.println(Thread.currentThread().getName() + "; run: "+run);
+	}
+	
+	public void joinOnNonVolatile() throws Exception {
+		
+		Thread newThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println(Thread.currentThread().getName() + " setting run to false");
+				non_volatile_run = false;
+				
+			}});
+		
+		newThread.start();
+		
+		System.out.println(Thread.currentThread().getName() + " before joined; non_volatile_run: "+non_volatile_run);
 		newThread.join();
-			System.out.println(Thread.currentThread().getName() + " after joined; run: "+run);
+			System.out.println(Thread.currentThread().getName() + " after joined; non_volatile_run: "+non_volatile_run);
 		
 	}
 	
