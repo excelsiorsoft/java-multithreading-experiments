@@ -156,13 +156,61 @@ public void synchronizationInNewThread() throws Exception {
 	newThread.start();
 	
 	while(true) {
-		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
+		System.out.println(Thread.currentThread().getName() + "* non_volatile_run: "+non_volatile_run);
 		
 		if(non_volatile_run == false) {
-		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run+"\nExiting...");
+		System.out.println(Thread.currentThread().getName() + "** non_volatile_run: "+non_volatile_run+"\nExiting...");
 		System.exit(0);
 		}
 	}
+	
+	
+	
+	
+}
+
+public void synchronizationInBothThreads() throws Exception {
+	
+	Thread newThread = new Thread(new Runnable() {
+
+		@Override
+			public void run() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+				synchronized (lock) {
+					System.out.println(Thread.currentThread().getName()
+							+ " non_volatile_run:" + non_volatile_run);
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " setting non_volatile_run to false");
+					
+					non_volatile_run = false;
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " non_volatile_run:" + non_volatile_run);
+				}
+			}});
+	
+	newThread.start();
+	
+	while(true) {
+		
+		synchronized(lock) {
+		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
+		
+		if(non_volatile_run == false) {
+		System.out.println(Thread.currentThread().getName() + ": Exiting...");
+		//System.exit(0);
+		break;
+		}
+		}
+	}
+	
+	
 	
 	
 }

@@ -38,4 +38,9 @@ public class SynchronizedWithTest {
 		cut.synchronizationInNewThread();
 	}
 
+	
+	@Test
+	public void testSynchronizationInBothThreads() throws Exception {
+		cut.synchronizationInBothThreads();
+	}
 }
