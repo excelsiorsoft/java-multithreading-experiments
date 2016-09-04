@@ -1,4 +1,4 @@
-package com.excelsiorsoft.hardware_math.hardware.cache;
+package com.excelsiorsoft.hardware.cache;
 
 public class CacheLineDemo {
 

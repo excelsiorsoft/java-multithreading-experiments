@@ -1,9 +1,11 @@
-package com.excelsiorsoft.hardware_math.hardware.cache;
+package com.excelsiorsoft.hardware.cache;
 
-import static com.excelsiorsoft.hardware_math.hardware.cache.CacheLineDemo.ARRAY_SIZE;
+import static com.excelsiorsoft.hardware.cache.CacheLineDemo.ARRAY_SIZE;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.excelsiorsoft.hardware.cache.CacheLineDemo;
 
 public class CacheLineDemoTest {
 
