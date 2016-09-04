@@ -34,8 +34,18 @@ public class SynchronizedWithTest {
 	}
 	
 	@Test
-	public void testSynchronizationInNewThread() throws Exception {
-		cut.synchronizationInNewThread();
+	public void testSynchronizationOfNonVolatileInNewThread() throws Exception {
+		cut.synchronizationOfNonVolatileInNewThread();
+	}
+	
+	@Test
+	public void testSynchronizationOfVolatileInNewThread() throws Exception {
+		cut.synchronizationOfVolatileInNewThread();
 	}
 
+	
+	@Test
+	public void testSynchronizationInBothThreads() throws Exception {
+		cut.synchronizationInBothThreads();
+	}
 }
