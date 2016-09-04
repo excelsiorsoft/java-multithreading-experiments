@@ -9,8 +9,13 @@ public class MutexTest {
 	Mutex cut = new Mutex();
 	
 	@Test
-	public void test() throws Exception {
+	public void competitionForALock() throws Exception {
 		cut.competingForALock();
+	}
+	
+	@Test
+	public void noCompetitionForALock() throws Exception {
+		cut.noCompetitionForALock();
 	}
 
 }
