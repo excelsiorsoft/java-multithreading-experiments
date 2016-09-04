@@ -4,11 +4,11 @@ public class Synchronization {
 
 	public static void main(String[] args) { // synchronization is reentrant
 		synchronized (Synchronization.class) {
-			f();
+			new Synchronization().f();
 		}
 	}
 
-	private static void f() {
+	private /*static*/ void f() {
 		synchronized (Synchronization.class) {
 			g();
 		}
