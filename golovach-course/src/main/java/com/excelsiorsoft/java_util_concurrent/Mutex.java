@@ -2,7 +2,7 @@ package com.excelsiorsoft.java_util_concurrent;
 
 public class Mutex {
 
-	public static void main(String[] args) throws Exception {
+	public void competingForALock() throws Exception {
 		final Object mutex = new Object();
 
 		for (int i = 0; i < 1000; i++) {
