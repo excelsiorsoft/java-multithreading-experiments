@@ -1,10 +1,10 @@
-package com.excelsiorsofthardware.ILP;
+package com.excelsiorsofthardware.instruction_level_parallelism;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.excelsiorsoft.hardware.ILP.InstructionLevelParallelism;
+import com.excelsiorsoft.hardware.instruction_level_parallelism.InstructionLevelParallelism;
 
 
 

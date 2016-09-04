@@ -1,8 +1,10 @@
-package com.excelsiorsoft.hardware_math.jmm;
+package com.excelsiorsoft.java_memory_model;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.excelsiorsoft.java_memory_model.SynchronizedWith;
 
 public class SynchronizedWithTest {
 

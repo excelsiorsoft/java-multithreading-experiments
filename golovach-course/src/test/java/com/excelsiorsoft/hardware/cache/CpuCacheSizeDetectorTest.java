@@ -1,8 +1,10 @@
-package com.excelsiorsoft.hardware_math.hardware.cache;
+package com.excelsiorsoft.hardware.cache;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.excelsiorsoft.hardware.cache.CpuCacheSizeDetector;
 
 public class CpuCacheSizeDetectorTest {
 

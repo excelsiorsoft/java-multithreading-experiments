@@ -1,4 +1,4 @@
-package com.excelsiorsoft.hardware_math.jmm; 
+package com.excelsiorsoft.java_memory_model; 
 
 public class SynchronizedWith {
 
