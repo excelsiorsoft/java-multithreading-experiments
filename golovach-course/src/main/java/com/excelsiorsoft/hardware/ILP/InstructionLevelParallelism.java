@@ -1,4 +1,4 @@
-package com.excelsiorsoft.hardware_math.hardware.ILP;
+package com.excelsiorsoft.hardware.ILP;
 
 public class InstructionLevelParallelism {
 

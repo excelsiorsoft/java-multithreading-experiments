@@ -1,4 +1,4 @@
-package com.excelsiorsoft.hardware_math.hardware.ILP;
+package com.excelsiorsoft.hardware.ILP;
 
 //http://stackoverflow.com/questions/39293444/performance-of-arithmetic-compound-assignment-operators-in-java/39293534?noredirect=1#comment65922265_39293534
 public class CopyOfInstructionLevelParallelism {
