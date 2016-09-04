@@ -127,7 +127,7 @@ public void joinOnVolatile() throws Exception {
 		
 	}
 
-public void synchronizationInNewThread() throws Exception {
+public void synchronizationOfNonVolatileInNewThread() throws Exception {
 	
 	Thread newThread = new Thread(new Runnable() {
 
@@ -155,11 +155,53 @@ public void synchronizationInNewThread() throws Exception {
 	
 	newThread.start();
 	
-	while(true) {
+	while(true) {//no synchronization, so no coordination guarantee
 		System.out.println(Thread.currentThread().getName() + "* non_volatile_run: "+non_volatile_run);
 		
 		if(non_volatile_run == false) {
 		System.out.println(Thread.currentThread().getName() + "** non_volatile_run: "+non_volatile_run+"\nExiting...");
+		System.exit(0);
+		}
+	}
+	
+	
+	
+	
+}
+
+public void synchronizationOfVolatileInNewThread() throws Exception {
+	
+	Thread newThread = new Thread(new Runnable() {
+
+		@Override
+			public void run() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+				//synchronized (lock) {
+					System.out.println(Thread.currentThread().getName()
+							+ " run:" + run);
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " setting run to false");
+					
+					run = false;
+					
+					System.out.println(Thread.currentThread().getName()
+							+ " run:" + run);
+				//}
+			}});
+	
+	newThread.start();
+	
+	while(true) {//no synchronization, so no coordination guarantee
+		System.out.println(Thread.currentThread().getName() + "* run: "+run);
+		
+		if(run == false) {
+		System.out.println(Thread.currentThread().getName() + "** run: "+run+"\nExiting...");
 		System.exit(0);
 		}
 	}
@@ -199,7 +241,7 @@ public void synchronizationInBothThreads() throws Exception {
 	
 	while(true) {
 		
-		synchronized(lock) {
+		synchronized(lock) {//synchronizing provides the coordination guarantee
 		System.out.println(Thread.currentThread().getName() + "; non_volatile_run: "+non_volatile_run);
 		
 		if(non_volatile_run == false) {
