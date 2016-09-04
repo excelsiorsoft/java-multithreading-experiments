@@ -17,5 +17,11 @@ public class MutexTest {
 	public void noCompetitionForALock() throws Exception {
 		cut.noCompetitionForALock();
 	}
+	
+	@Test
+	public void checkAtomicity() throws Exception {
+		cut.atomicity();
+	}
+
 
 }

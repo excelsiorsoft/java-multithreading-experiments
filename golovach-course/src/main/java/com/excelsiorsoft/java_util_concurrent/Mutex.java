@@ -48,14 +48,12 @@ public class Mutex {
 			}).start();
 		}
 	}
-	
-	
+
 	public void noCompetitionForALock() throws Exception {
 		final Object mutex1 = new Object();
 		final Object mutex2 = new Object();
-		
-		for (int i = 0; i < 1000; i++) {
 
+		for (int i = 0; i < 1000; i++) {
 
 			new Thread(new Runnable() {
 
@@ -90,6 +88,55 @@ public class Mutex {
 					synchronized (mutex2) {
 						/* while (true) */
 						System.out.println("B");
+					}
+				}
+
+			}).start();
+		}
+	}
+
+	public void atomicity() {
+
+		final Object mutex = new Object();
+		//final Object mutex2 = new Object();
+
+		for (int i = 0; i < 1000; i++) {
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						System.out.println("**in A");
+						Thread.sleep(20);
+					} catch (InterruptedException e) {
+
+						e.printStackTrace();
+					}
+					synchronized (mutex) { //same lock
+						/* while (true) */
+						System.out.println("+A");
+						System.out.println("-A\n-----");
+					}
+				}
+
+			}).start();
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					System.out.println("**in B");
+					try {
+						Thread.sleep(25);
+					} catch (InterruptedException e) {
+
+						e.printStackTrace();
+					}
+					synchronized (mutex) { //same mutex
+						/* while (true) */
+						System.out.println("+B");
+						System.out.println("-B\n-----");
 					}
 				}
 
