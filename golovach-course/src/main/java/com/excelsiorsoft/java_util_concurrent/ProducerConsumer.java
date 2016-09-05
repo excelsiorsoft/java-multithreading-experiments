@@ -34,7 +34,10 @@ public class ProducerConsumer {
 				while (true) {
 					
 					try {
-						data = queue.take(); //poll, remove
+
+						data = queue.take(); //block thread
+						//Integer data = queue.poll(); null
+						//Integer data = queue.remove(); NoSuchElementException
 						System.out.println("took: "+ data);
 					} catch (InterruptedException ignore) {	}
 						process(data);
