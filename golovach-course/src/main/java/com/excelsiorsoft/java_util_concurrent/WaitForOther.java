@@ -272,7 +272,7 @@ public void coordinationWithSynchAndVolatile() throws Exception {
 	}
 }
 
-public void sequenceOfEvents() {
+public void nothingCanGoBetweenCandDsequenceOfEvents() {
 	
 	final Object monitor = new Object();
 	
@@ -297,6 +297,42 @@ public void sequenceOfEvents() {
 	synchronized(monitor) {
 		System.out.println("C");
 		monitor.notify();
+		System.out.println("D");// D will always appear before Y because the main thread holds the monitor, even though Th-0 is notified
+								//Th-0 goes from the wait set into the blocked set of the JVM awaiting scheduling.
+
+		
+	}
+	
+	System.out.println("E");
+}
+
+public void notKnownWhatWillBeBetweenCnadDsequencOfEvents() throws InterruptedException {
+	
+	final Object monitor = new Object();
+	
+	new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			synchronized(monitor) {
+				in = true;
+				try {
+					System.out.println("X");
+					monitor.wait();
+					System.out.println("Y");
+					monitor.notify();
+				}catch(InterruptedException ignore) {}
+			}
+			
+		}}).start();
+	
+	System.out.println("A");
+	while(!in);
+	System.out.println("B");
+	synchronized(monitor) {
+		System.out.println("C");
+		monitor.notify();// --> doesn't throw anything
+		monitor.wait(); //--> throws interrupted Exception
 		System.out.println("D");// D will always appear before Y because the main thread holds the monitor, even though Th-0 is notified
 								//Th-0 goes from the wait set into the blocked set of the JVM awaiting scheduling.
 

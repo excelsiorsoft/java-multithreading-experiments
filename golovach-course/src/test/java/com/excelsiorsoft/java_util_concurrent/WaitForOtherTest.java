@@ -53,8 +53,14 @@ public class WaitForOtherTest {
 	
 	@Test
 	public void testSequenceOfEvents() throws Exception {
-		cut.sequenceOfEvents();
-		Thread.sleep(10000);
+		cut.nothingCanGoBetweenCandDsequenceOfEvents();
+
 	}
 	
+	
+	@Test
+	public void testNotKnownWhatWillBeBetweenCnadDsequencOfEvents() throws Exception {
+		cut.notKnownWhatWillBeBetweenCnadDsequencOfEvents();
+
+	}
 }
