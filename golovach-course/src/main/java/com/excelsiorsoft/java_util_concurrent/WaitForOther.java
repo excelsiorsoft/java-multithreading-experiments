@@ -69,6 +69,42 @@ public class WaitForOther {
 
 		//return newThread;
 	}
+	
+	public /*Thread*/ void backAndForthViaMonitorWait() throws Exception {
+
+		final Object monitor = new Object();
+
+		Thread newThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				synchronized (monitor) {
+					in = true;
+					try {
+						monitor.wait(); // this releases monitor
+						 //Thread.sleep(8000); //No-op
+						System.out.println("Resumed in "
+								+ Thread.currentThread().getName());
+
+					} catch (InterruptedException ignore) {/**/}
+				}
+
+			}
+		}); 
+		newThread.start();
+
+		System.out.println("Ready!");
+		while (!in); // spin lock / busy waiting
+		System.out.println("Set!");
+		synchronized (monitor) {
+			System.out.println("Go!");
+			monitor.notifyAll();
+			System.out.println("After notifyAll");
+		}
+		System.out.println("Exiting...");
+
+		//return newThread;
+	}
 
 	public void playPingPong() throws Exception {
 

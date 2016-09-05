@@ -21,6 +21,12 @@ public class WaitForOtherTest {
 	}
 	
 	@Test
+	public void testBackAndForthViaMonitorWait() throws Exception {
+		cut.backAndForthViaMonitorWait();
+		//Thread.sleep(9000);
+	}
+	
+	@Test
 	public void testPlayPingPong() throws Exception {
 		cut.playPingPong();
 	}
