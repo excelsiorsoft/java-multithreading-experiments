@@ -32,5 +32,33 @@ public class WaitForOther {
 		}
 		
 	}
+	
+public void stoppingViaMonitorWait() throws Exception {
+		
+		final Object monitor = new Object();
+		
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				synchronized(monitor) {
+					in = true;
+					try {
+						monitor.wait();		//this releases monitor
+						Thread.sleep(8000); //No-op
+
+					}catch(InterruptedException ignore) {/**/}
+				}
+				
+			}}).start();
+		
+		System.out.println("Ready!");
+		while(!in); //spin lock / busy waiting
+		System.out.println("Set!");
+		synchronized(monitor) {
+			System.out.println("Go!");
+		}
+		
+	}
 
 }

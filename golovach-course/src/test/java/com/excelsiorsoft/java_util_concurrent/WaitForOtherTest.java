@@ -12,5 +12,10 @@ public class WaitForOtherTest {
 	public void testfreezeOtherThread() throws Exception {
 		cut.freezeOtherThread();
 	}
+	
+	@Test
+	public void teststoppingViaMonitorWait() throws Exception {
+		cut.stoppingViaMonitorWait();
+	}
 
 }
