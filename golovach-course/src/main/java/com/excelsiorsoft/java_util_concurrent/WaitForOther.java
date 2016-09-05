@@ -5,6 +5,9 @@ public class WaitForOther {
 	private volatile boolean in = false;// need volatile for transitive closure
 										// to occur
 
+	volatile int counter =  0;
+	volatile boolean finish0 = false;
+	
 	public void freezeOtherThread() throws Exception {
 
 		final Object monitor = new Object();
@@ -151,5 +154,31 @@ public class WaitForOther {
 	}*/
 
 	
-	
+	public void volatileWithoutCoordination() throws Exception {
+		
+		Thread th1 = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for(int k = 0; k < 10_000_000; k++) {
+					counter++;
+				}
+				
+			}}); th1.start();
+		
+		Thread th2 = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for(int k = 0; k < 10_000_000; k++) {
+					counter++;
+				}
+				
+			}}); th2.start();
+		
+			th1.join();
+			th2.join();
+		System.out.println("counter: "+counter); //wrong result - not 20_000_000 expected
+		
+	}
 }

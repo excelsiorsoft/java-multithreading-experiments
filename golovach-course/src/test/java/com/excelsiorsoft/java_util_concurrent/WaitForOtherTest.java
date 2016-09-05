@@ -30,5 +30,10 @@ public class WaitForOtherTest {
 	public void testPlayPingPong() throws Exception {
 		//cut.playPingPong();
 	}
+	
+	@Test
+	public void testVolatileWithoutCoordination() throws Exception {
+		cut.volatileWithoutCoordination();
+	}
 
 }
