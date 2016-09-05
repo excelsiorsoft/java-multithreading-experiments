@@ -44,5 +44,17 @@ public class WaitForOtherTest {
 	public void testJoinIsEquivalentToVolatileFlags() throws Exception {
 		cut.joinIsEquivalentToVolatileFlags();
 	}
-
+	
+	@Test
+	public void testCoordinationWithSynchAndVolatile() throws Exception {
+		cut.coordinationWithSynchAndVolatile();
+	}
+	
+	
+	@Test
+	public void testSequenceOfEvents() throws Exception {
+		cut.sequenceOfEvents();
+		Thread.sleep(10000);
+	}
+	
 }
