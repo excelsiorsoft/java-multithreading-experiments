@@ -1,10 +1,12 @@
 package com.excelsiorsoft.java_util_concurrent;
 
+import java.io.UnsupportedEncodingException;
+
 public class WaitForOther {
 	
-	private static volatile boolean in = false;// need volatile for transitive closure to occur
+	private volatile boolean in = false;// need volatile for transitive closure to occur
 	
-	public static void main(String[] args) {
+	public void freezeOtherThread() throws Exception {
 		
 		final Object monitor = new Object();
 		
@@ -15,7 +17,8 @@ public class WaitForOther {
 				synchronized(monitor) {
 					in = true;
 					try {
-						Thread.sleep(8000);
+						Thread.sleep(8000); //Thread.sleep DOES NOT release the monitor
+
 					}catch(InterruptedException ignore) {/**/}
 				}
 				
