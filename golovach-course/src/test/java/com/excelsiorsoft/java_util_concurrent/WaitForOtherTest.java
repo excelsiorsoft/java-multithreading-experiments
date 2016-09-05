@@ -1,7 +1,6 @@
 package com.excelsiorsoft.java_util_concurrent;
 
-import static org.junit.Assert.*;
-
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class WaitForOtherTest {
@@ -27,8 +26,9 @@ public class WaitForOtherTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testPlayPingPong() throws Exception {
-		cut.playPingPong();
+		//cut.playPingPong();
 	}
 
 }

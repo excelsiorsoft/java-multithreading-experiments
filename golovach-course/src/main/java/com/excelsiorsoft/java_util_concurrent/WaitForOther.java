@@ -106,7 +106,7 @@ public class WaitForOther {
 		//return newThread;
 	}
 
-	public void playPingPong() throws Exception {
+	/*public void playPingPong() throws Exception {
 
 		final Object monitor = new Object();
 		Thread.currentThread().setPriority(5);;
@@ -126,7 +126,7 @@ public class WaitForOther {
 							// Thread.sleep(8000); //No-op
 							
 
-						} catch (InterruptedException ignore) {/**/
+						} catch (InterruptedException ignore) {
 						}
 					}
 
@@ -148,6 +148,8 @@ public class WaitForOther {
 			}
 		//}
 
-	}
+	}*/
 
+	
+	
 }
