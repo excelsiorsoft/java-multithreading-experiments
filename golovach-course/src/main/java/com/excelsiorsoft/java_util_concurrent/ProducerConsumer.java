@@ -35,6 +35,7 @@ public class ProducerConsumer {
 					
 					try {
 
+
 						data = queue.take(); //block thread
 						//Integer data = queue.poll(); null
 						//Integer data = queue.remove(); NoSuchElementException
