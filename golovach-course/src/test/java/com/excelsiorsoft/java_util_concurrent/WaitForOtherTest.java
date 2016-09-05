@@ -14,8 +14,15 @@ public class WaitForOtherTest {
 	}
 	
 	@Test
-	public void teststoppingViaMonitorWait() throws Exception {
-		cut.stoppingViaMonitorWait();
+	public void testStoppingViaMonitorWait() throws Exception {
+		/*Thread x = */cut.stoppingViaMonitorWait();
+//		x.join();
+		Thread.sleep(9000);
+	}
+	
+	@Test
+	public void testPlayPingPong() throws Exception {
+		cut.playPingPong();
 	}
 
 }

@@ -1,64 +1,117 @@
 package com.excelsiorsoft.java_util_concurrent;
 
-import java.io.UnsupportedEncodingException;
-
 public class WaitForOther {
-	
-	private volatile boolean in = false;// need volatile for transitive closure to occur
-	
+
+	private volatile boolean in = false;// need volatile for transitive closure
+										// to occur
+
 	public void freezeOtherThread() throws Exception {
-		
+
 		final Object monitor = new Object();
-		
+
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				synchronized(monitor) {
+				synchronized (monitor) {
 					in = true;
 					try {
-						Thread.sleep(8000); //Thread.sleep DOES NOT release the monitor
+						Thread.sleep(8000); // Thread.sleep DOES NOT release the
+											// monitor
 
-					}catch(InterruptedException ignore) {/**/}
+					} catch (InterruptedException ignore) {/**/
+					}
 				}
-				
-			}}).start();
-		
+
+			}
+		}).start();
+
 		System.out.println("На старт!");
-		while(!in); //spin lock / busy waiting
+		while (!in); // spin lock / busy waiting
 		System.out.println("Внимание!");
-		synchronized(monitor) {
+		synchronized (monitor) {
 			System.out.println("Марш!");
+
 		}
-		
+
 	}
-	
-public void stoppingViaMonitorWait() throws Exception {
-		
+
+	public /*Thread*/ void stoppingViaMonitorWait() throws Exception {
+
 		final Object monitor = new Object();
-		
-		new Thread(new Runnable() {
+
+		Thread newThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				synchronized(monitor) {
+				synchronized (monitor) {
 					in = true;
 					try {
-						monitor.wait();		//this releases monitor
-						Thread.sleep(8000); //No-op
+						monitor.wait(); // this releases monitor
+						 //Thread.sleep(8000); //No-op
+						System.out.println("Resumed in "
+								+ Thread.currentThread().getName());
 
-					}catch(InterruptedException ignore) {/**/}
+					} catch (InterruptedException ignore) {/**/}
 				}
-				
-			}}).start();
-		
+
+			}
+		}); 
+		newThread.start();
+
 		System.out.println("Ready!");
-		while(!in); //spin lock / busy waiting
+		while (!in); // spin lock / busy waiting
 		System.out.println("Set!");
-		synchronized(monitor) {
+		synchronized (monitor) {
 			System.out.println("Go!");
+			monitor.notifyAll();
 		}
-		
+
+		//return newThread;
+	}
+
+	public void playPingPong() throws Exception {
+
+		final Object monitor = new Object();
+		Thread.currentThread().setPriority(5);;
+
+		Thread pongThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				synchronized (monitor) {
+					System.out.println("\tPong!");
+					for (;;) {
+
+						in = true;
+						try {
+							System.out.println("\tPong!");
+							monitor.wait(); // this releases monitor
+							// Thread.sleep(8000); //No-op
+							
+
+						} catch (InterruptedException ignore) {/**/
+						}
+					}
+
+				}
+			}
+		}); 
+		pongThread.setPriority(5);
+		pongThread.start();
+
+		System.out.println("Ping!");
+		while (!in); // spin lock / busy waiting
+		// System.out.println("Ping!");
+		//for (;;) {
+			synchronized (monitor) {
+				for(;;) {
+				//System.out.println("Ping!");
+				monitor.notifyAll();
+				}
+			}
+		//}
+
 	}
 
 }
