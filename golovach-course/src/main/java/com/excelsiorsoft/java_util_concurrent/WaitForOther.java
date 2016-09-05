@@ -299,6 +299,7 @@ public void sequenceOfEvents() {
 		monitor.notify();
 		System.out.println("D");// D will always appear before Y because the main thread holds the monitor, even though Th-0 is notified
 								//Th-0 goes from the wait set into the blocked set of the JVM awaiting scheduling.
+
 		
 	}
 	
