@@ -230,4 +230,78 @@ public void joinIsEquivalentToVolatileFlags() throws Exception {
 	System.out.println("counter: "+counter); //wrong result - not 20_000_000 expected
 	
 }
+
+public void coordinationWithSynchAndVolatile() throws Exception {
+	
+	final Object coordinator = new Object();
+
+	Thread th1 = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			for(int k = 0; k < 10_000_000; k++) {
+				//synchronized(coordinator) {
+				counter++;
+				//}
+			}
+			//finish1 = true;
+			
+		}}); th1.start();
+	
+	Thread th2 = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			for(int k = 0; k < 10_000_000; k++) {
+				synchronized(coordinator) {
+				counter++;
+				}
+			}
+			//finish2 = true;
+		}}); th2.start();
+	
+		//while(!finish1 || !finish2);
+		
+		th1.join();
+		th2.join();
+	
+	while(true) {
+		synchronized(coordinator) {
+			System.out.println("counter: "+counter); //how does one peek to continuously change values/
+		}
+	}
+}
+
+public void sequenceOfEvents() {
+	
+	final Object monitor = new Object();
+	
+	new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			synchronized(monitor) {
+				in = true;
+				try {
+					System.out.println("X");
+					monitor.wait();
+					System.out.println("Y");
+				}catch(InterruptedException ignore) {}
+			}
+			
+		}}).start();
+	
+	System.out.println("A");
+	while(!in);
+	System.out.println("B");
+	synchronized(monitor) {
+		System.out.println("C");
+		monitor.notify();
+		System.out.println("D");// D will always appear before Y because the main thread holds the monitor, even though Th-0 is notified
+		
+	}
+	
+	System.out.println("E");
+}
+
 }
