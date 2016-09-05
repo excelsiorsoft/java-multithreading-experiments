@@ -34,6 +34,7 @@ public class ProducerConsumer {
 				while (true) {
 					
 					try {
+
 						data = queue.take(); //poll, remove
 						System.out.println("took: "+ data);
 					} catch (InterruptedException ignore) {	}
