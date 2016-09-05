@@ -8,7 +8,7 @@ public class Funny {
 
 		Funny ref = null;
 		
-		ref.laugh(); //no NPE produced!!
+		ref.laugh(); //no NPE produced!!  Call on static null reference is allowed
 		
 		
 	}
