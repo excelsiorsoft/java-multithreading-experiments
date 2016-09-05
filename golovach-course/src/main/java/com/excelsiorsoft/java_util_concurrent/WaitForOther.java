@@ -5,8 +5,9 @@ public class WaitForOther {
 	private volatile boolean in = false;// need volatile for transitive closure
 										// to occur
 
-	volatile int counter =  0;
-	volatile boolean finish0 = false;
+	private volatile int counter =  0;
+	private volatile boolean finish1 = false;
+	private volatile boolean finish2 = false;
 	
 	public void freezeOtherThread() throws Exception {
 
@@ -154,15 +155,22 @@ public class WaitForOther {
 	}*/
 
 	
-	public void volatileWithoutCoordination() throws Exception {
+	
+	
+public void coordination() throws Exception {
 		
+		final Object coordinator = new Object();
+	
 		Thread th1 = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				for(int k = 0; k < 10_000_000; k++) {
+					synchronized(coordinator) {
 					counter++;
+					}
 				}
+				//finish1 = true;
 				
 			}}); th1.start();
 		
@@ -171,14 +179,55 @@ public class WaitForOther {
 			@Override
 			public void run() {
 				for(int k = 0; k < 10_000_000; k++) {
+					synchronized(coordinator) {
 					counter++;
+					}
 				}
-				
+				//finish2 = true;
 			}}); th2.start();
 		
+			//while(!finish1 || !finish2);
+			
 			th1.join();
 			th2.join();
 		System.out.println("counter: "+counter); //wrong result - not 20_000_000 expected
 		
 	}
+
+public void joinIsEquivalentToVolatileFlags() throws Exception {
+	
+	final Object coordinator = new Object();
+
+	Thread th1 = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			for(int k = 0; k < 10_000_000; k++) {
+				synchronized(coordinator) {
+				counter++;
+				}
+			}
+			finish1 = true;
+			
+		}}); th1.start();
+	
+	Thread th2 = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			for(int k = 0; k < 10_000_000; k++) {
+				synchronized(coordinator) {
+				counter++;
+				}
+			}
+			finish2 = true;
+		}}); th2.start();
+	
+		while(!finish1 || !finish2);
+		
+		//th1.join();
+		//th2.join();
+	System.out.println("counter: "+counter); //wrong result - not 20_000_000 expected
+	
+}
 }

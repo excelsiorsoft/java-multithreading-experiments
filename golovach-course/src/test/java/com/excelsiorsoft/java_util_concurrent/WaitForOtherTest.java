@@ -31,9 +31,16 @@ public class WaitForOtherTest {
 		//cut.playPingPong();
 	}
 	
+	
+	
 	@Test
-	public void testVolatileWithoutCoordination() throws Exception {
-		cut.volatileWithoutCoordination();
+	public void testCoordination() throws Exception {
+		cut.coordination();
+	}
+	
+	@Test
+	public void testJoinIsEquivalentToVolatileFlags() throws Exception {
+		cut.joinIsEquivalentToVolatileFlags();
 	}
 
 }
