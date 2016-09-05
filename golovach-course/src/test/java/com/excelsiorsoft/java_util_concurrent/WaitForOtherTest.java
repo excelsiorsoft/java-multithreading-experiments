@@ -17,12 +17,14 @@ public class WaitForOtherTest {
 		/*Thread x = */cut.stoppingViaMonitorWait();
 //		x.join();
 		Thread.sleep(9000);
+		//http://stackoverflow.com/questions/39322831/inter-thread-communication-in-java
 	}
 	
 	@Test
 	public void testBackAndForthViaMonitorWait() throws Exception {
 		cut.backAndForthViaMonitorWait();
 		//Thread.sleep(9000);
+		
 	}
 	
 	@Test
