@@ -1,5 +1,6 @@
 package com.excelsiorsoft.hardware.instruction_level_parallelism;
 
+<<<<<<< HEAD
 /**
  * Run from the console: 
 
@@ -10,6 +11,8 @@ package com.excelsiorsoft.hardware.instruction_level_parallelism;
  *
  */
 
+=======
+>>>>>>> branch 'master' of https://github.com/excelsiorsoft/java-multithreading-experiments.git
 public class MemoryTest {
 	public static void main(String args[]) {
 		System.out.println("Used Memory   :  "
