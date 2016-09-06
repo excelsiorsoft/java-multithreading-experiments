@@ -8,7 +8,7 @@ public class Producer implements Runnable {
 	private final int period;
 	private final SingleElementBuffer buffer;
 	
-	public Producer(int id, int value, int period, SingleElementBuffer buffer) {
+	public Producer(int id, int value/*starting value*/, int period, SingleElementBuffer buffer) {
 		this.id = id;
 		this.buffer = buffer;
 		this.period = period;
