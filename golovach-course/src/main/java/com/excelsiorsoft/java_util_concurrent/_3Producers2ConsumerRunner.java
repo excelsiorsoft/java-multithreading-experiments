@@ -1,6 +1,6 @@
 package com.excelsiorsoft.java_util_concurrent;
 
-public class ProducerConsumerRunner {
+public class _3Producers2ConsumerRunner {
 
 	public static void main(String... args) {
 		SingleElementBuffer buffer = new SingleElementBuffer();
