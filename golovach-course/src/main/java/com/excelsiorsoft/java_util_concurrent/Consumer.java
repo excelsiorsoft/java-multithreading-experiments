@@ -17,7 +17,7 @@ public class Consumer implements Runnable{
 			Integer elem;
 			try {
 				elem = buffer.get();
-				System.out.println(" "+ currentTimeMillis()+ ": "+elem+" consumed by "+id);
+				System.out.println("\t"+ currentTimeMillis()+ ": "+elem+" consumed by C#"+id);
 			} catch (InterruptedException ignore) {}
 			
 		}
