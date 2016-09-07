@@ -30,9 +30,8 @@ public class ThreadPoolTest {
 
 	private Runnable createTask(final long taskNumber) {
 
-		return new Runnable() {
 
-			
+		return new Runnable() {
 
 			@Override
 			public void run() {

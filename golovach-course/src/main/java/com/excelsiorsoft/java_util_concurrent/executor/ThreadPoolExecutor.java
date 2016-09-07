@@ -8,7 +8,7 @@ public class ThreadPoolExecutor implements Executor {
 	
 	private final Thread[] pool;
 	//private final BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(256);//bounded
-	private final BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>();//unbounded
+	private final BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>(1);//unbounded
 	
 	public ThreadPoolExecutor(int threadCount) {
 		
