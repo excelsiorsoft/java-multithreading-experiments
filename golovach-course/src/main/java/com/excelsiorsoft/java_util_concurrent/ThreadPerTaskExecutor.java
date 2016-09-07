@@ -16,10 +16,11 @@ public class ThreadPerTaskExecutor {
 		return new Executor() {
 
 			private final AtomicLong index = new AtomicLong(7);
+			private final ThreadGroup group = new ThreadGroup("grp");
 			@Override
 			public void execute(Runnable command) {
 				
-				Thread t = new Thread(command);
+				Thread t = new Thread(group,command);
 				t.setDaemon(true);
 				t.setPriority(Thread.NORM_PRIORITY+3);
 				t.setName("Thread-"+index.getAndIncrement());
