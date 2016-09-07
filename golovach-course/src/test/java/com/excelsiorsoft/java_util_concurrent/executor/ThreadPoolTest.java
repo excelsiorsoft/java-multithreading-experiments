@@ -15,7 +15,7 @@ public class ThreadPoolTest {
 		
 		AtomicLong taskNumber = new AtomicLong(0);
 		
-		Executor poolingExecutor = new ThreadPool(2);
+		Executor poolingExecutor = new ThreadPoolExecutor(2);
 		
 		poolingExecutor.execute(getTask(taskNumber.getAndIncrement()));
 		poolingExecutor.execute(getTask(taskNumber.getAndIncrement()));

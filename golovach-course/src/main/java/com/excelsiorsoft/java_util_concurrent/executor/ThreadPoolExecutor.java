@@ -1,16 +1,16 @@
 package com.excelsiorsoft.java_util_concurrent.executor;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class ThreadPool implements Executor {
+public class ThreadPoolExecutor implements Executor {
 	
 	private final Thread[] pool;
-	private final BlockingQueue<Runnable> taskQueue = new /*ArrayBlockingQueue<>(256)*/LinkedBlockingQueue<Runnable>();
+	//private final BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(256);//bounded
+	private final BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>();//unbounded
 	
-	public ThreadPool(int threadCount) {
+	public ThreadPoolExecutor(int threadCount) {
 		
 		this.pool = new Thread[threadCount];
 		
