@@ -1,4 +1,4 @@
-package com.excelsiorsoft.java_util_concurrent;
+package com.excelsiorsoft.java_util_concurrent.executor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicLong;
