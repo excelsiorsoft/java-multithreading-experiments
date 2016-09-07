@@ -10,6 +10,8 @@ public class ThreadPerTaskExecutor {
 		Executor executor = getExecutor();
 		executor.execute(getTask());
 		executor.execute(getTask());
+		
+		System.out.println("Hi from "+ Thread.currentThread());
 	}
 
 	private static Executor getExecutor() {
@@ -17,6 +19,7 @@ public class ThreadPerTaskExecutor {
 
 			private final AtomicLong index = new AtomicLong(7);
 			private final ThreadGroup group = new ThreadGroup("grp");
+			
 			@Override
 			public void execute(Runnable command) {
 				
