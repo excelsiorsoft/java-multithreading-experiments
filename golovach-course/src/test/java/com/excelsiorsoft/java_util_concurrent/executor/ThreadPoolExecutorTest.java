@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Test;
 
-public class ThreadPoolTest {
+public class ThreadPoolExecutorTest {
 
 	@Test
 	public void test() {
