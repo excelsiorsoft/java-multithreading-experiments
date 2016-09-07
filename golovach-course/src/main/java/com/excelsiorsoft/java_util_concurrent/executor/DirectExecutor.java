@@ -11,7 +11,7 @@ public class DirectExecutor {
 		executor.execute(getTask());
 		executor.execute(getTask());
 
-		System.out.println("Hi from " + Thread.currentThread());
+		System.out.println("\n----------------------------\nFinally, the wait is over. " + Thread.currentThread());
 	}
 
 	private static Executor getExecutor() {
@@ -19,7 +19,8 @@ public class DirectExecutor {
 
 			@Override
 			public void execute(Runnable command) {
-				command.run();
+				System.out.println("Be prepared to wait....\nLong.... .... .....");
+				command.run(); //blocking!!
 
 			}
 		};
@@ -31,6 +32,9 @@ public class DirectExecutor {
 
 			@Override
 			public void run() {
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {}
 				Thread thread = Thread.currentThread();
 				System.out.println("Hello from " + thread);
 
