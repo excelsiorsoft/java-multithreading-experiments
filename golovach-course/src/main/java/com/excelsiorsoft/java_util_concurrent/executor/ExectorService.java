@@ -1,5 +1,8 @@
 package com.excelsiorsoft.java_util_concurrent.executor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -10,20 +13,22 @@ public class ExectorService {
 		ExecutorService execService = java.util.concurrent.Executors
 				.newCachedThreadPool();
 
-		Future<Integer> future0 = execService.submit(new Callable<Integer>() {
+		Callable<Integer> task1 = new Callable<Integer>() {
 			public Integer call() {
 				return 42;
 			}
-		}
-
-		);
-
-		Future<Integer> future1 = execService.submit(new Callable<Integer>() {
+		};
+		
+		Callable<Integer> task2 = new Callable<Integer>() {
 			public Integer call() {
 				return null;
-				// while(true);
 			}
-		});
+		}
+
+		;
+		Future<Integer> future0 = execService.submit(task1);
+
+		Future<Integer> future1 = execService.submit(task2);
 
 		Thread.sleep(1000);
 
@@ -38,6 +43,16 @@ public class ExectorService {
 		
 		System.out.println("future0.get(): "+future0.get());
 		System.out.println("future1.get(): "+future1.get()); //blocks for `while(true)`
+		System.out.println("\nFinished Execution\n");
+
+		
+		List<Callable<Integer>> tasks = Arrays.asList(task1, task2);
+		
+		List<Future<Integer>> allBlockingFutures = execService.invokeAll(tasks); //blocking
+		
+		for(Future<Integer> future:allBlockingFutures) {
+			System.out.println(future +" -> "+ future.get());
+		}
 
 	}
 }
