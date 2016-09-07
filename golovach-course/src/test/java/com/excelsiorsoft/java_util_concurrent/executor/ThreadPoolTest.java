@@ -23,6 +23,7 @@ public class ThreadPoolTest {
 			System.out.println("Created "+task +"\n");
 			poolingExecutor.execute(task);
 			System.out.println("Successfully submitted " + task+"\n");
+			System.out.println("Completed.");
 			
 		}
 
