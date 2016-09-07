@@ -1,6 +1,7 @@
 package com.excelsiorsoft.java_util_concurrent.executor;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -44,15 +45,17 @@ public class ExectorService {
 		System.out.println("future0.get(): "+future0.get());
 		System.out.println("future1.get(): "+future1.get()); //blocks for `while(true)`
 		System.out.println("\nFinished Execution\n");
-
 		
 		List<Callable<Integer>> tasks = Arrays.asList(task1, task2);
+
 		
 		List<Future<Integer>> allBlockingFutures = execService.invokeAll(tasks); //blocking
 		
 		for(Future<Integer> future:allBlockingFutures) {
 			System.out.println(future +" -> "+ future.get());
 		}
+		
+		execService.shutdownNow();
 
 	}
 }
