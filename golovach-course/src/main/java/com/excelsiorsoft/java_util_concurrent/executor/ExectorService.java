@@ -7,6 +7,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
+import org.omg.CORBA.portable.IndirectionException;
+
 public class ExectorService {
 
 	public static void main(String[] args) throws Exception {
@@ -23,6 +25,14 @@ public class ExectorService {
 			public Integer call() {
 				return null;
 			}
+		};
+		
+		Callable<Integer> task3 = new Callable<Integer>() {
+			public Integer call()  {
+				for(int i = 0;i<10000000;i++);
+				return null;
+			}
+			
 		}
 
 		;
@@ -44,15 +54,19 @@ public class ExectorService {
 		System.out.println("future0.get(): "+future0.get());
 		System.out.println("future1.get(): "+future1.get()); //blocks for `while(true)`
 		System.out.println("\nFinished Execution\n");
+		
+		List<Callable<Integer>> tasks = Arrays.asList(task1, task2, task3);
 
 		
-		List<Callable<Integer>> tasks = Arrays.asList(task1, task2);
-		
 		List<Future<Integer>> allBlockingFutures = execService.invokeAll(tasks); //blocking
+		
+		//execService.shutdownNow();
 		
 		for(Future<Integer> future:allBlockingFutures) {
 			System.out.println(future +" -> "+ future.get());
 		}
+		
+		execService.shutdownNow();
 
 	}
 }
