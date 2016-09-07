@@ -24,6 +24,7 @@ public class ThreadPoolExecutor implements Executor {
 						Runnable task;
 						try {
 							task = taskQueue.take(); //blocking
+							Thread.sleep(10);
 							task.run();
 						} catch (InterruptedException e) {break;}
 						
@@ -38,13 +39,29 @@ public class ThreadPoolExecutor implements Executor {
 	
 
 
+	
+
 	@Override
 	public void execute(Runnable command) {
 
+		/*System.out.println("Attempting to submit a task "+command+" to a queue via `offer`\n");
 		if(!taskQueue.offer(command)) {
-			System.out.println("Rejected!");
-		}
+			System.out.println("Task "+command+" was rejected during `offer` due to overcapacity!");
+		}*/
 		
+		try {
+			
+			System.out.println("Attempting to submit "+command+" to a queue via `put`\n");
+			taskQueue.put(command);//if queue is full - blocking
+			
+		}catch(InterruptedException ie) {}
+		
+		/*try{
+			System.out.println("Attempting to submit a task "+command+" to a queue via `add`\n");
+			taskQueue.add(command);
+		}catch(IllegalStateException e) {
+			System.out.println("Task "+command+"was rejected during `add` due to queue capacity restrictions");
+		}*/
 	}
 
 }
