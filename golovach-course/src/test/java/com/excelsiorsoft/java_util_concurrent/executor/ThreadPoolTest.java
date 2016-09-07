@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicLong;
 
+
 import org.junit.Test;
 
 public class ThreadPoolTest {
@@ -12,24 +13,46 @@ public class ThreadPoolTest {
 	@Test
 	public void test() {
 
-		
 		AtomicLong taskNumber = new AtomicLong(0);
-		
+
 		Executor poolingExecutor = new ThreadPoolExecutor(2);
-		
-		poolingExecutor.execute(getTask(taskNumber.getAndIncrement()));
-		poolingExecutor.execute(getTask(taskNumber.getAndIncrement()));
+
+		for (int i = 0; i < 20; i++) {
+			
+			Runnable task = createTask(taskNumber.getAndIncrement());
+			System.out.println("Created "+task +"\n");
+			poolingExecutor.execute(task);
+			System.out.println("Successfully submitted " + task+"\n");
+			
+		}
+
 	}
 
-	private Runnable getTask(final long taskNumber) {
-		return new Runnable() {
-			
+	private Runnable createTask(final long taskNumber) {
+
+		return new Runnable/* WithSource */() {
+
+			public String source;
+
 			@Override
 			public void run() {
-				System.out.println("Creating task-"+ taskNumber);
-				
-			}};
-	
+				System.out.println("Executing "+toString());
+
+			}
+
+			public String getSource() {
+				return source;
+			}
+			
+			@Override
+			public String toString() {
+				return "[Task taskNumber="+taskNumber+"]";
+			}
+
+		};
+
 	}
+
+	
 
 }
