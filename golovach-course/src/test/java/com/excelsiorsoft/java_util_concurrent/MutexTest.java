@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.excelsiorsoft.java_util_concurrent.synchronization.Mutex;
+
 public class MutexTest {
 
 	Mutex cut = new Mutex();

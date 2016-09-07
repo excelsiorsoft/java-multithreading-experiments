@@ -3,6 +3,8 @@ package com.excelsiorsoft.java_util_concurrent;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.excelsiorsoft.java_util_concurrent.synchronization.WaitForOther;
+
 public class WaitForOtherTest {
 
 	WaitForOther cut  = new WaitForOther();

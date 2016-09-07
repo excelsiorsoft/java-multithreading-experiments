@@ -1,4 +1,4 @@
-package com.excelsiorsoft.java_util_concurrent;
+package com.excelsiorsoft.java_util_concurrent.producer_consumer;
 
 import static java.lang.System.currentTimeMillis;
 

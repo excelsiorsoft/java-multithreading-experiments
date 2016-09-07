@@ -1,4 +1,4 @@
-package com.excelsiorsoft.java_util_concurrent;
+package com.excelsiorsoft.java_util_concurrent.producer_consumer;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;

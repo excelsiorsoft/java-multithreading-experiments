@@ -1,4 +1,4 @@
-package com.excelsiorsoft.java_util_concurrent;
+package com.excelsiorsoft.java_util_concurrent.producer_consumer;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
