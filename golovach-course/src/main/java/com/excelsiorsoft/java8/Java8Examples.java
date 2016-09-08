@@ -54,6 +54,7 @@ public class Java8Examples {
 		 F<Integer> myF2 = (x, y) -> x + y;
 		 
 		 System.out.println(myF2);
+		 System.out.println((F<Integer>)(x, y) -> x + y);
 		 
 	}
 
