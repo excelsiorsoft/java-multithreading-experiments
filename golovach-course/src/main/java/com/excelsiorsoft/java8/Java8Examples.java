@@ -3,9 +3,8 @@ package com.excelsiorsoft.java8;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import com.excelsiorsoft.java8.Java8Examples.Xmlizer;
 
 public class Java8Examples {
 
@@ -76,6 +75,18 @@ public class Java8Examples {
 		System.out.println("=========================");
 		System.out.println(new Java8Examples().new User().toXml());
 
+		System.out.println("=========================");
+		
+		Arrays.asList("1", "2 33", "4 55 666").stream();
+		
+		Supplier<Double> random = Math::random;
+		for(int i = 0; i<5; i++) {
+			System.out.println(random.get());
+		}
+		
+		MyFunction<String, Integer> converter = Integer::valueOf;
+		
+		
 	}
 
 	public static void printHello() {
@@ -144,6 +155,11 @@ public class Java8Examples {
 
 		private int age = 42;
 		private String name = "Masha";
+	}
+	
+	interface MyFunction<T, R>{
+		
+		R apply(T arg);
 	}
 
 }
