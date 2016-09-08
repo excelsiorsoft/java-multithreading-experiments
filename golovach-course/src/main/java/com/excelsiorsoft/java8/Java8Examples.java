@@ -97,7 +97,11 @@ public class Java8Examples {
 		
 		Arrays.asList("1", "2 33", "4 55 666").stream().flatMap(f).forEach(System.out::println);;
 		
+		System.out.println("=========================");
 		
+		Stream<Double> gen_doubles = Stream.generate(Math::random);
+		
+		Stream<Double> it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(5); it_doubles.forEach(System.out::println);;
 	}
 
 	public static void printHello() {
