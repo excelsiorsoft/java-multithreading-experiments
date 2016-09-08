@@ -101,7 +101,16 @@ public class Java8Examples {
 		
 		Stream<Double> gen_doubles = Stream.generate(Math::random);
 		
-		Stream<Double> it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(5); it_doubles.forEach(System.out::println);;
+		Stream<Double> it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(5); 
+		it_doubles.forEach(System.out::println);;
+		
+		System.out.println("=========================");
+		
+		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10); double sum = it_doubles.reduce(0d, (x, y) -> x+y); System.out.println(sum);
+		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10);  sum = it_doubles.reduce(0d, (x, y) -> x-y); System.out.println(sum);
+		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10);  sum = it_doubles.parallel().reduce(0d, (x, y) -> x+y); System.out.println(sum);
+		//`-` is not an associative function => cannot parallelize
+		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10);  sum = it_doubles.parallel().reduce(0d, (x, y) -> x-y); System.out.println(sum);
 	}
 
 	public static void printHello() {
