@@ -25,6 +25,10 @@ public class Java8Examples {
 		 System.out.println("=========================");
 			
 		 Stream.iterate(2L, k->k+1).filter(k -> k%3==2).limit(20).forEach(System.out::println);;
+		 
+		 System.out.println("=========================");
+		 
+		 Stream.iterate(0L, k -> k+1).parallel().filter(k -> k%3 ==2).map(k-> "~"+k).limit(10).forEach(k->System.out.println(k));
 	}
 
 	
