@@ -69,6 +69,9 @@ public class Java8Examples {
 		 
 		 Consumer<String> consumer = s -> System.out.println(s.charAt(0));
 		 
+		 Consumer<String> cons = System.out::println;
+		 
+		 
 
 
 	}
@@ -82,4 +85,30 @@ public class Java8Examples {
 	interface F<T>{
 		 int add(int k, int p);
 	 }
+	
+	
+	interface G <T> {
+		 T f(T k, T p);
+		 default void ff0() {}
+		 static void ff1() {}
+		 default void ff2() {}
+		 static void ff3() {}
+	 }
+	
+	
+	
+	interface Parent {
+		void f();
+		default void g() {};
+	}
+	
+	class Child implements Parent{
+
+		@Override
+		public void f() {}
+		
+		//g is not required any longer
+		
+		
+	}
 }
