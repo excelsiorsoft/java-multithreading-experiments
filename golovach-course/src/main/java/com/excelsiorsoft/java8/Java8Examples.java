@@ -49,7 +49,7 @@ public class Java8Examples {
 		
 		 System.out.println("=========================");
 		 
-		 F myF = (int x, int y) -> x + y;
+		 F myF = ( x, y) -> x + y;
 		 
 	}
 
