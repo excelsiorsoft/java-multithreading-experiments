@@ -56,6 +56,13 @@ public class Java8Examples {
 		 System.out.println(myF2);
 		 System.out.println((F<Integer>)(x, y) -> x + y);
 		 
+		 System.out.println((F<Integer>)null);
+		 
+		 //System.out.println(null);
+		 
+		 F<String>myF3 = (x, y)-> y+x;
+		 System.out.println(myF3);
+		 
 	}
 
 	
@@ -63,6 +70,7 @@ public class Java8Examples {
 		System.out.print("Method!\n");
 	}
 	
+	@FunctionalInterface
 	interface F<T>{
 		 int add(int k, int p);
 	 }
