@@ -3,6 +3,8 @@ package com.excelsiorsoft.java8;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -75,9 +77,6 @@ public class Java8Examples {
 		System.out.println("=========================");
 		System.out.println(new Java8Examples().new User().toXml());
 
-		System.out.println("=========================");
-		
-		Arrays.asList("1", "2 33", "4 55 666").stream();
 		
 		Supplier<Double> random = Math::random;
 		for(int i = 0; i<5; i++) {
@@ -85,6 +84,18 @@ public class Java8Examples {
 		}
 		
 		MyFunction<String, Integer> converter = Integer::valueOf;
+		
+		Function<String, Integer> func = str -> Integer.valueOf(str);
+		
+		Function<String, Integer> func1 =  Integer::valueOf;
+		
+		Predicate <Double> p= arg -> arg > 1;
+		
+		System.out.println("=========================");
+		
+		Function<String, Stream<String>> f = s -> Stream.of(s.split(" "));
+		
+		Arrays.asList("1", "2 33", "4 55 666").stream().flatMap(f).forEach(System.out::println);;
 		
 		
 	}
