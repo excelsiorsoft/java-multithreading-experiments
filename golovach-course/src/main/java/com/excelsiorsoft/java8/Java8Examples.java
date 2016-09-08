@@ -50,6 +50,10 @@ public class Java8Examples {
 		 System.out.println("=========================");
 		 
 		 F myF = ( x, y) -> x + y;
+		 F myF1 = ( int x, int y) -> x + y;
+		 F<Integer> myF2 = (x, y) -> x + y;
+		 
+		 System.out.println(myF2);
 		 
 	}
 
@@ -58,7 +62,7 @@ public class Java8Examples {
 		System.out.print("Method!\n");
 	}
 	
-	interface F{
+	interface F<T>{
 		 int add(int k, int p);
 	 }
 }
