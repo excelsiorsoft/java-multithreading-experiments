@@ -60,9 +60,11 @@ public class Java8Examples {
 		 
 		 //System.out.println(null);
 		 
+
 		 F<String>myF3 = (x, y)-> y+x;
 		 System.out.println(myF3);
 		 
+
 	}
 
 	
