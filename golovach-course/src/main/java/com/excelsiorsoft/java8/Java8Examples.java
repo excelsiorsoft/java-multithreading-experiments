@@ -11,10 +11,12 @@ public class Java8Examples {
 		
 		new Thread(()->System.out.println("Lambda!")).start();
 		
+
 		Arrays.asList("A", "BB", "CCC").parallelStream()
 										.map(/*str -> str.length()*/String::length)
 										.filter(k->k%2 == 1)
 										.forEach(System.out::println);
+
 		
 		System.out.println("=========================");
 		
