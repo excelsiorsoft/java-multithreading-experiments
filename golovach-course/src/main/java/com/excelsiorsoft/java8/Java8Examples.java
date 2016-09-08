@@ -1,7 +1,11 @@
 package com.excelsiorsoft.java8;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+
+
 
 public class Java8Examples {
 	
@@ -29,10 +33,32 @@ public class Java8Examples {
 		 System.out.println("=========================");
 		 
 		 Stream.iterate(0L, k -> k+1).parallel().filter(k -> k%3 ==2).map(k-> "~"+k).limit(10).forEach(k->System.out.println(k));
+		 
+		 System.out.println("=========================");
+		 
+		Stream.iterate(0L, k -> k + 1).parallel().filter(k -> k % 3 == 2)
+				.map(k -> "~" + k).limit(10).forEach(new Consumer<String>() {
+
+					@Override
+					public void accept(String t) {
+						System.out.println(Thread.currentThread());
+
+					}
+
+				});
+		
+		 System.out.println("=========================");
+		 
+		 F myF = (int x, int y) -> x + y;
+		 
 	}
 
 	
 	public static void printHello() {
 		System.out.print("Method!\n");
 	}
+	
+	interface F{
+		 int add(int k, int p);
+	 }
 }
