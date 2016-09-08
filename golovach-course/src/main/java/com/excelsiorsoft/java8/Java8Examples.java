@@ -94,6 +94,7 @@ public class Java8Examples {
 		 default void ff2() {}
 		 static void ff3() {}
 	 }
+
 	
 	
 	
@@ -107,8 +108,8 @@ public class Java8Examples {
 		@Override
 		public void f() {}
 		
-		//g is not required any longer
-		
-		
+		//g is not required any longer in Java 8, default replaces that need
+
 	}
+
 }
