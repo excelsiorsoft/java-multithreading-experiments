@@ -64,10 +64,12 @@ public class Java8Examples {
 		 F<String>myF3 = (x, y)-> y+x;
 		 System.out.println(myF3);
 		 
+
 		 System.out.println("=========================");
 		 
-		 Consumer<String> consumer = (s) -> System.out.println(s.charAt(0));
+		 Consumer<String> consumer = s -> System.out.println(s.charAt(0));
 		 
+
 
 	}
 
