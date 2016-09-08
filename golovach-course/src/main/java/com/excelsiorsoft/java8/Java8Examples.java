@@ -157,7 +157,7 @@ public class Java8Examples {
 		private String name = "Masha";
 	}
 	
-	interface MyFunction<T, R>{
+	interface MyFunction<T extends Comparable<?>, R>{
 		
 		R apply(T arg);
 	}
