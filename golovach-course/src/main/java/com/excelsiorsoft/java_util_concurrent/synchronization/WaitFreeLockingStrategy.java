@@ -10,14 +10,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Simeon
  *
  */
-public class LockingStrategies {
+public class WaitFreeLockingStrategy {
 
 	private final Lock lock = new ReentrantLock();
 	private int index = 0;
 
 	
 	public static void main(String []args) {
-		new LockingStrategies().withTryLock();
+		new WaitFreeLockingStrategy().withTryLock();
 	}
 	
 	public void withTryLock() {
