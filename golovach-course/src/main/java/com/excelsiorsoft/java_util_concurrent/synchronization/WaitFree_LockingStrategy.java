@@ -17,7 +17,7 @@ public class WaitFree_LockingStrategy {
 
 	
 	public static void main(String []args) throws InterruptedException {
-			
+		
 		int toInc = 10;
 		int noOfThreads = 2;
 		
