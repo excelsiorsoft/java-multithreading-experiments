@@ -41,6 +41,7 @@ public class Synchronization_LockingStrategy {
 		
 		long startTime = System.nanoTime();
 		
+
 Thread[] threadsCreated = new Thread[noOfThreads];
 		
 		for(int th=0; th<noOfThreads; th++) {
@@ -67,6 +68,7 @@ Thread[] threadsCreated = new Thread[noOfThreads];
 		}
 		
 		/*Thread t1 = new Thread(() -> {
+
 			for(int i=0; i<toInc;i++) {
 				synchronized (mutex) {
 					int myId = index++;

@@ -44,6 +44,7 @@ public class WaitFree_LockingStrategy {
 		
 		long startTime = System.nanoTime();
 		
+
 		Thread[] threadsCreated = new Thread[noOfThreads];
 		
 		for(int th=0; th<noOfThreads; th++) {
@@ -78,6 +79,7 @@ public class WaitFree_LockingStrategy {
 		}
 		
 /*		Thread t1 = new Thread(() -> {
+
 			for(int i=0; i<toInc;i++) {
 				label:
 				if (lock.tryLock()) {
