@@ -5,9 +5,6 @@ package com.excelsiorsoft.java_util_concurrent.synchronization;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author Simeon
