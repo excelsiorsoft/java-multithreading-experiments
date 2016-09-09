@@ -5,9 +5,6 @@ package com.excelsiorsoft.java_util_concurrent.synchronization;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author Simeon
@@ -51,11 +48,11 @@ public class WaitFree_LockingStrategy {
 			
 			Runnable task = () -> {
 				for(int i=0; i<toInc;i++) {
-					label:
+					//label:
 					if (lock.tryLock()) {
 						try{ int myId = index++;
 						System.out.println(Thread.currentThread()+": " + myId);
-						break label;
+						//break label;
 						}finally{lock.unlock();}
 					} else {
 						
