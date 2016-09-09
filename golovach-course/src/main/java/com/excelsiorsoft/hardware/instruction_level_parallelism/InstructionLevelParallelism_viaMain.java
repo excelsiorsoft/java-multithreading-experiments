@@ -2,11 +2,11 @@
 package com.excelsiorsoft.hardware.instruction_level_parallelism;
 
 //http://stackoverflow.com/questions/39293444/performance-of-arithmetic-compound-assignment-operators-in-java/39293534?noredirect=1#comment65922265_39293534
-public class CopyOfInstructionLevelParallelism {
+public class InstructionLevelParallelism_viaMain {
 
 	public static void main(String ... args){
 		for(int i =0; i<10; i++) {
-			new CopyOfInstructionLevelParallelism().squaring();
+			new InstructionLevelParallelism_viaMain().squaring();
 		}
 	}
 	
