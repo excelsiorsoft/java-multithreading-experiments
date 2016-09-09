@@ -8,7 +8,7 @@ package com.excelsiorsoft.java_util_concurrent.synchronization;
  * @author Simeon
  *
  */
-public class WaitFreeLockingStrategy {
+public class Synchronization_LockingStrategy {
 
 	//private final Lock lock = new ReentrantLock();
 	private int index = 0;
@@ -21,7 +21,7 @@ public class WaitFreeLockingStrategy {
 		long accumulatedTime = 0;
 		
 		for(int i=0; i<repetitions;i++) {
-		long took = new WaitFreeLockingStrategy().withTryLock();
+		long took = new Synchronization_LockingStrategy().withSynchronized();
 		accumulatedTime += took;
 		}
 		
@@ -32,7 +32,7 @@ public class WaitFreeLockingStrategy {
 		
 	}
 	
-	public long withTryLock() throws InterruptedException {
+	public long withSynchronized() throws InterruptedException {
 		
 		long startTime = System.nanoTime();
 		

@@ -10,17 +10,34 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Simeon
  *
  */
-public class SynchronizationLockingStrategy {
+public class WaitFree_LockingStrategy {
 
 	private final Lock lock = new ReentrantLock();
 	private int index = 0;
 
 	
-	public static void main(String []args) {
-		new SynchronizationLockingStrategy().withTryLock();
+	public static void main(String []args) throws InterruptedException {
+		/*new WaitFree_LockingStrategy().withTryLock();*/
+		
+		
+		int repetitions = 10_000;
+		long accumulatedTime = 0;
+		
+		for(int i=0; i<repetitions;i++) {
+		long took = new WaitFree_LockingStrategy().withTryLock();
+		accumulatedTime += took;
+		}
+		
+		long avgTime = accumulatedTime/repetitions;
+		
+		System.out.println("========================\nAverage Time: "+(double)avgTime / 1E9+" sec");
+		//System.out.println("========================\nAverage Time: "+avgTime);
+		
 	}
 	
-	public void withTryLock() {
+	public long withTryLock() throws InterruptedException {
+		
+		long startTime = System.nanoTime();
 		
 		Thread t1 = new Thread(() -> {
 			for(int i=0; i<10;i++) {
@@ -57,6 +74,13 @@ public class SynchronizationLockingStrategy {
 		t2.setName("t2");
 		t2.setPriority(Thread.NORM_PRIORITY );
 		t2.start();
+		
+		t1.join();
+		t2.join();
+		
+		long took = (System.nanoTime() - startTime);
+		System.out.println("----------------------------\nestimatedTime: " +took+"\n----------------------------");
+		return took;
 	}
 	
 	
