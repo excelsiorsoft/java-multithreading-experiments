@@ -2,6 +2,7 @@ package com.excelsiorsoft.java8;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -111,6 +112,13 @@ public class Java8Examples {
 		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10);  sum = it_doubles.parallel().reduce(0d, (x, y) -> x+y); System.out.println(sum);
 		//`-` is not an associative function => cannot parallelize
 		it_doubles = Stream.iterate(1d, g -> g + 1.0).limit(10);  sum = it_doubles.parallel().reduce(0d, (x, y) -> x-y); System.out.println(sum);
+		
+		System.out.println("=========================");
+		
+		Optional<Double> summation = Stream.iterate(1d, g -> g + 1d).parallel().limit(3).reduce((x, y) -> x+y); //reduce without an identity
+		System.out.println(Stream.iterate(1d, g -> g + 1d).parallel().limit(3).reduce((x, y) -> x+y));
+		
+		//sum = it_doubles.parallel().reduce(0d, (x, y) -> x-y); System.out.println(sum);
 	}
 
 	public static void printHello() {
