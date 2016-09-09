@@ -17,33 +17,37 @@ public class WaitFree_LockingStrategy {
 
 	
 	public static void main(String []args) throws InterruptedException {
-		/*new WaitFree_LockingStrategy().withTryLock();*/
-		
+			
+		int toInc = 10;
+		int noOfThreads = 2;
 		
 		int repetitions = 10_000;
 		long accumulatedTime = 0;
 		
 		for(int i=0; i<repetitions;i++) {
-		long took = new WaitFree_LockingStrategy().withTryLock();
+		long took = new WaitFree_LockingStrategy().withTryLock(toInc, noOfThreads);
 		accumulatedTime += took;
 		}
 		
 		long avgTime = accumulatedTime/repetitions;
+		System.out.println("Finished "+repetitions+ " repetitions of incrementing "+toInc+" numbers with " + noOfThreads + " threads in " + accumulatedTime / 1E9 +" sec");
 		
-		System.out.println("========================\nAverage Time: "+(double)avgTime / 1E9+" sec");
-		//System.out.println("========================\nAverage Time: "+avgTime);
+		System.out.println("========================\nAverage Time per repetition: "+(double)avgTime / 1E9+" sec");
+		
 		
 	}
 	
-	public long withTryLock() throws InterruptedException {
+	public long withTryLock(int toInc, int noOfThreads) throws InterruptedException {
 		
 		long startTime = System.nanoTime();
 		
 		Thread t1 = new Thread(() -> {
-			for(int i=0; i<10;i++) {
+			for(int i=0; i<toInc;i++) {
+				label:
 				if (lock.tryLock()) {
 					try{ int myId = index++;
 					System.out.println(Thread.currentThread()+": " + myId);
+					break label;
 					}finally{lock.unlock();}
 				} else {
 					
@@ -59,10 +63,12 @@ public class WaitFree_LockingStrategy {
 		
 		
 		Thread t2 = new Thread(() -> {
-			for(int i=0; i<10;i++) {
+			for(int i=0; i<toInc;i++) {
+				label:
 				if (lock.tryLock()) {
 					try{int myId = index++;
 					System.out.println(Thread.currentThread()+": " + myId);
+					break label;
 					}finally{lock.unlock();}
 				} else {
 					System.out.println(Thread.currentThread()+" couldn't acquire lock. " );
@@ -79,7 +85,7 @@ public class WaitFree_LockingStrategy {
 		t2.join();
 		
 		long took = (System.nanoTime() - startTime);
-		System.out.println("----------------------------\nestimatedTime: " +took+"\n----------------------------");
+		System.out.println("----------------------------\nestimatedTime: " +took/1E9+" sec\n----------------------------");
 		return took;
 	}
 	
