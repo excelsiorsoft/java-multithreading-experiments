@@ -18,8 +18,11 @@ public class MoreCompletableFutures {
 		
 		f0.acceptEitherAsync(f1, System.out::println);
 		
-
+		f0.thenAcceptBothAsync(f1, (x,y)-> System.out.println(x + "#" +y));
+		
 		System.in.read();//must be present to stop main thread from exiting
+		
+		
 
 	}
 	
@@ -27,6 +30,18 @@ public class MoreCompletableFutures {
 		try {
 			Thread.sleep(dt);
 		} catch (InterruptedException ignre) {}
+	}
+	
+	
+	private static class Infinity{
+		public static void main(String[] args) {
+			
+			double a=1;
+			double b=a+1;
+			double c = b/0;
+			double d = c+1;
+			System.out.println(d);//prints Infinity
+		}
 	}
 	
 }
