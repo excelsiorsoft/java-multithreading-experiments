@@ -1,5 +1,7 @@
 package com.excelsiorsoft.java8;
 
+import static java.util.stream.Stream.of;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Optional;
@@ -119,6 +121,22 @@ public class Java8Examples {
 		System.out.println(Stream.iterate(1d, g -> g + 1d).parallel().limit(3).reduce((x, y) -> x+y));
 		
 		//sum = it_doubles.parallel().reduce(0d, (x, y) -> x-y); System.out.println(sum);
+		
+		System.out.println("=========================");
+		
+		Integer sum0 = of(1,2, 3).reduce(0, (x, y) -> x+y);
+		System.out.println(sum0);
+		
+		Optional<Integer> sum1 = of(1,2, 3).reduce( (x, y) -> x+y);
+		System.out.println(sum1);
+		
+		Optional<Integer> sum2 = of(1,2, 3).filter(x->x>10).reduce( (x, y) -> x+y);
+		System.out.println(sum2);
+		
+		
+		
+		
+		
 	}
 
 	public static void printHello() {
