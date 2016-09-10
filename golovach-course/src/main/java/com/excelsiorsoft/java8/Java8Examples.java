@@ -146,6 +146,12 @@ public class Java8Examples {
 	System.out.println(str);
 	System.out.println(str.get());
 	str.ifPresent(System.out::println);
+	
+	System.out.println("=========================");
+	
+	Integer k = 42;
+	Optional<Integer> optK = Optional.of(k);
+	Optional<Integer> empty = Optional.empty();
 
 	}
 
