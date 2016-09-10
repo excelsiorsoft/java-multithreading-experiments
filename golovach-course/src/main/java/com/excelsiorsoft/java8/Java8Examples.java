@@ -3,6 +3,8 @@ package com.excelsiorsoft.java8;
 import static java.util.stream.Stream.of;
 
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -153,6 +155,14 @@ public class Java8Examples {
 	Optional<Integer> optK = Optional.of(k);
 	Optional<Integer> empty = Optional.empty();
 
+	
+	Optional<Integer> optP = optK.map(x->x+1);
+	optP.ifPresent(System.out::println);
+	
+	
+	System.out.println("=========================");
+	
+	
 	}
 
 	public static void printHello() {
