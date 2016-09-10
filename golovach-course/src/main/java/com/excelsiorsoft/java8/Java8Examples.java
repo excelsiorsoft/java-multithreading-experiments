@@ -127,6 +127,7 @@ public class Java8Examples {
 		Integer sum0 = of(1,2, 3).reduce(0, (x, y) -> x+y);
 		System.out.println(sum0);
 		
+
 		Optional<Integer> sum1 = of(1,2, 3).reduce( (x, y) -> x+y);
 		System.out.println(sum1);
 		
@@ -135,7 +136,7 @@ public class Java8Examples {
 		
 		
 		
-		
+
 		
 	}
 
