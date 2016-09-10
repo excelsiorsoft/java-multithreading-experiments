@@ -146,6 +146,7 @@ public class Java8Examples {
 	System.out.println(str);
 	System.out.println(str.get());
 	str.ifPresent(System.out::println);
+
 	}
 
 	public static void printHello() {
