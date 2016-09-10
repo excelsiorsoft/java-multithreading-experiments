@@ -72,7 +72,7 @@ public void invokeAny() throws InterruptedException, ExecutionException {
 				);
 		
 		
-		System.out.println(Arrays.toString(bytes));
+		System.out.println(/*Arrays.toString(bytes)*/new String(bytes)); //could return any of 3 files, whichever finished its execution
 		
 		
 		
