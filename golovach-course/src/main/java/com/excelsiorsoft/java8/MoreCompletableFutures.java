@@ -18,7 +18,9 @@ public class MoreCompletableFutures {
 		
 		f0.acceptEitherAsync(f1, System.out::println);
 		
+
 		System.in.read();//must be present to stop main thread from exiting
+
 	}
 	
 	private  void sleep(long dt) {
