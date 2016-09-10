@@ -41,6 +41,10 @@ public class MoreCompletableFutures {
 			double c = b/0;
 			double d = c+1;
 			System.out.println(d);//prints Infinity
+			double e= 1 - d;
+			System.out.println(e);
+			double f = d/e;
+			System.out.println(f);
 		}
 	}
 	
