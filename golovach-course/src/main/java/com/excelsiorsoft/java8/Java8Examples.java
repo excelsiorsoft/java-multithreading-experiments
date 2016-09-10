@@ -135,9 +135,17 @@ public class Java8Examples {
 		System.out.println(sum2);
 		
 		
-		
-
-		
+		Optional<Integer> s = of(1,2,3).reduce((x, y)-> x +y);
+		Optional<Integer> sqr =s.map(x -> x*x);
+		Optional<String> str = sqr.map(new Function<Integer, String>() {
+			@Override
+			public String apply(Integer t) {
+				return "#" + t;
+			}
+		});
+	System.out.println(str);
+	System.out.println(str.get());
+	str.ifPresent(System.out::println);
 	}
 
 	public static void printHello() {
