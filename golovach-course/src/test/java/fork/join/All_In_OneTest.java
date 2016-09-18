@@ -39,4 +39,10 @@ public class All_In_OneTest {
 		cut.viaStreams(); 
 	}
 	
+	@Test
+
+	public void viaStreamsIterate()  {
+		cut.viaStreamsIterate(); 
+	}
+	
 }
