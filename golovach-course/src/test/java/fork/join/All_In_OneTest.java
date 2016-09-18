@@ -18,5 +18,11 @@ public class All_In_OneTest {
 		cut.betterImplOfIterativeParallelism();
 	}
 	
+	@Test
+	public void latchInsteadOfInvokeAll() throws InterruptedException {
+		cut.latchInsteadOfInvokeAll();
+	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package fork.join;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
@@ -81,5 +82,35 @@ private long calcMoreEffective(/*AtomicLong accum,*/ int from, int to) {
 		return result;
 	}
 	
+
+public void latchInsteadOfInvokeAll() throws InterruptedException {
+	
+	AtomicLong result = new AtomicLong(0);
+	int cpuCount = Runtime.getRuntime().availableProcessors();
+	ExecutorService pool = Executors.newFixedThreadPool(cpuCount);
+	
+	long start = System.nanoTime();
+	//List<Callable<Void>>taskList = new ArrayList<>();
+	final int NUM_OF_THREADS = 100;
+	final CountDownLatch latch = new CountDownLatch(NUM_OF_THREADS);
+	
+	for(int k = 0; k < NUM_OF_THREADS;k++) {
+		final int finalK = k;  //effectively final is allowed as well
+		pool.submit(()->{
+			
+			long localResult = calcMoreEffective(/*result, */10_000 * finalK, 10_000 * (finalK + 1));
+			result.addAndGet(localResult);
+			latch.countDown();
+		});
+	}
+	
+	latch.await();
+	
+	//pool.invokeAll(taskList); //blocking call
+	long end = System.nanoTime();
+	System.out.println(result + "; "+ (end - start)/1_000_000 +" ms");
+	pool.shutdown();
+
+}
 
 }
