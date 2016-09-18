@@ -23,6 +23,11 @@ public class All_In_OneTest {
 		cut.latchInsteadOfInvokeAll();
 	}
 	
+	@Test
+	public void recursivelyViaForkJoin() throws InterruptedException {
+		cut.recursivelyViaForkJoin(); //a lot faster
+	}
+	
 	
 
 }
