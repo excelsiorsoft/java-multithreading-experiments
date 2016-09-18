@@ -24,7 +24,7 @@ public class All_In_One {
 			taskList.add(()->{
 				//[0...10,000), [10,000...20,000), ...
 				calcNonEffective(result, 10_000 * finalK, 10_000 * (finalK + 1));
-				return null;
+				return null; //callable requires this
 			});
 		}
 		
@@ -60,7 +60,7 @@ public void betterImplOfIterativeParallelism() throws InterruptedException {
 			//[0...10,000), [10,000...20,000), ...
 			long localResult = calcMoreEffective(/*result, */10_000 * finalK, 10_000 * (finalK + 1));
 			result.addAndGet(localResult);
-			return null;
+			return null; //callable requires this
 		});
 	}
 	
