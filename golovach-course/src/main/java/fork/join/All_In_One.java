@@ -1,6 +1,7 @@
 package fork.join;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.concurrent.Callable;
@@ -319,12 +320,25 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 		 */
 		@Override
 		public boolean tryAdvance(LongConsumer consumer) {
-			if(to > from) {
+			if(to > from) {					//[10, 20) -> [11, 20), true
 				consumer.accept(from++);
 				return true;
-			}else {
+			}else {							//[20, 20) -> [20, 20), false
 				return false;
 			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.util.Spliterator#getComparator()
+		 * 
+		 * If this Spliterator's source is SORTED by a Comparator,
+		 * returns that Comparator
+		 * If the source is sorted in natural order, returns null.
+		 * Otherwise, if the source is NOT sorted, throws IllegalStateException
+		 */
+		@Override
+		public Comparator<? super Long>getComparator(){
+			return null;
 		}
 		
 	}
