@@ -2,6 +2,7 @@ package fork.join;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Spliterator;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -11,8 +12,11 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
+import java.util.function.LongConsumer;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class All_In_One { //associativity of summation is taken advantage of here, so this quality is important
 
@@ -227,7 +231,7 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 	public void viaStreamsIterate()  {
 
 		long start = System.nanoTime();
-		
+		//boxing, unboxing - ineffective
 		long result = Stream.iterate(0, k -> k++).limit(1_000_000)
 				.parallel()
 				.filter(x -> x % 5 != 0)
@@ -236,6 +240,93 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 
 		long end = System.nanoTime();
 		System.out.println("viaStreamsIterate(): "+result + "; "+ (end - start)/1_000_000 +" ms");
+	}
+	
+	
+	public void spliterators()  {
+
+		//sequential: Collection -> Iterator
+		//parallel:   Stream -> Spliterator 
+		
+		LongRange longRange = new LongRange(0, 1_000_000);
+		
+		long start = System.nanoTime();
+		
+		long result = StreamSupport.stream(longRange, true)
+				.parallel()
+				.filter(x -> (x %3 != 0) && (x %5 != 0))
+				.reduce(0L, (x, y)->x+y);
+		
+
+		long end = System.nanoTime();
+		System.out.println("spliterators(): "+result + "; "+ (end - start)/1_000_000 +" ms");
+	}
+	
+	class LongRange implements Spliterator.OfLong{
+
+		private long from;
+		private long to;
+		
+		
+		public LongRange(long from, long to){
+			this.from = from;
+			this.to = to;
+		}
+		
+		@Override
+		public boolean tryAdvance(Consumer<? super Long> action) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public long estimateSize() {
+			return to - from;
+		}
+
+		@Override
+		public int characteristics() {
+			
+			return 0
+					
+		//			Spliterator.CONCURRENT
+					| Spliterator.DISTINCT
+					| Spliterator.IMMUTABLE
+					| Spliterator.NONNULL
+		//			| Spliterator.ORDERED
+					| Spliterator.SIZED
+		//			| Spliterator.SORTED
+					| Spliterator.SUBSIZED;
+					
+					
+					
+		}
+
+		@Override
+		public /*java.util.Spliterator.OfLong*/ LongRange  trySplit() {
+			if(to - from >1) {
+				return new LongRange(from, from = ((from + to)>>>1));
+			}else {
+				return null;
+			}
+		}
+
+		/* (non-Javadoc)
+		 * @see java.util.Spliterator.OfLong#tryAdvance(java.util.function.LongConsumer)
+		 * 
+		 * If empty - return false
+		 * If NOT empty - process one elem + return true
+		 */
+		@Override
+		public boolean tryAdvance(LongConsumer consumer) {
+			if(to > from) {
+				consumer.accept(from++);
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
 	}
 
 }

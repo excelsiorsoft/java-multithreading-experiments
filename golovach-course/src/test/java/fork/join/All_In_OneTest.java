@@ -40,9 +40,13 @@ public class All_In_OneTest {
 	}
 	
 	@Test
-
 	public void viaStreamsIterate()  {
 		cut.viaStreamsIterate(); 
+	}
+	
+	@Test
+	public void spliterators()  {
+		cut.spliterators(); 
 	}
 	
 }
