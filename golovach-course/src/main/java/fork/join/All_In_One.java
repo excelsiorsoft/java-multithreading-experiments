@@ -197,9 +197,11 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 					int mid = (from + to) >>> 1;
 					TaskCallableAnalog taskLeft = new TaskCallableAnalog(from, mid,	result);
 					TaskCallableAnalog taskRight = new TaskCallableAnalog(mid, to,	result);
+
 					taskLeft.fork();  							//start asynchronously
 					taskRight.fork();							//start asynchronously
 					return taskLeft.join() + taskRight.join(); //analogous to Future.get()
+
 				}
 			}
 
