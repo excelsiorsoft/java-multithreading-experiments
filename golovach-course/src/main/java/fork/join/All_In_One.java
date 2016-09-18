@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class All_In_One {
@@ -124,40 +125,86 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 	AtomicLong result = new AtomicLong(0);
 	long start = System.nanoTime();
 	
-	new ForkJoinPool().invoke(new Task(1, 1_000_000, result)); //invoke returns T, not Future of T
+	new ForkJoinPool().invoke(new TaskRunnableAnalog(1, 1_000_000, result)); //invoke returns T, not Future of T
 	
 	long end = System.nanoTime();
 	System.out.println("recursivelyViaForkJoin(): "+result.get() + "; "+ (end - start)/1_000_000 +" ms");
 
 }
 
-public static class Task extends RecursiveAction {
+	public static class TaskRunnableAnalog extends RecursiveAction {
 
-	private final int from;
-	private final int to;
-	private final AtomicLong result;
-	
-	public Task(int from, int to, AtomicLong result) {
-		this.from = from;
-		this.to = to;
-		this.result = result;
-	}
-	
-	@Override
-	protected void compute() { //Runnable analog
-		
-		if(to - from < 10_000) {
-			result.addAndGet(calcMoreEffective(from, to));
-		}else {
-			int mid = (from + to) >>> 1;
-		Task taskLeft = new Task(from, mid, result);
-		Task taskRight = new Task(mid, to, result);
-		invokeAll(taskLeft, taskRight);
+		private static final long serialVersionUID = 1L;
+		private final int from;
+		private final int to;
+		private final AtomicLong result;
+
+		public TaskRunnableAnalog(int from, int to, AtomicLong result) {
+			this.from = from;
+			this.to = to;
+			this.result = result;
 		}
+
+		@Override
+		protected void compute() { // Runnable analog
+
+			if (to - from < 10_000) {
+				result.addAndGet(calcMoreEffective(from, to));
+			} else {
+				int mid = (from + to) >>> 1;
+				TaskRunnableAnalog taskLeft = new TaskRunnableAnalog(from, mid,
+						result);
+				TaskRunnableAnalog taskRight = new TaskRunnableAnalog(mid, to,
+						result);
+				invokeAll(taskLeft, taskRight);
+			}
+		}
+
+	}
+	
+	
+	public void recursivelyViaForkJoinRecursiveTask() throws InterruptedException {//recursive parallelism
+		
+		AtomicLong result = new AtomicLong(0);
+		long start = System.nanoTime();
+		
+		new ForkJoinPool().invoke(new TaskRunnableAnalog(1, 1_000_000, result)); //invoke returns T, not Future of T
+		
+		long end = System.nanoTime();
+		System.out.println("recursivelyViaForkJoinRecursiveTask(): "+result.get() + "; "+ (end - start)/1_000_000 +" ms");
+
 	}
 
-	
+		public static class TaskCollableAnalog extends RecursiveTask<Long> {
 
-}
+			private static final long serialVersionUID = 1L;
+			private final int from;
+			private final int to;
+			private final AtomicLong result;
+
+			public TaskCollableAnalog(int from, int to, AtomicLong result) {
+				this.from = from;
+				this.to = to;
+				this.result = result;
+			}
+
+			@Override
+			protected Long compute() { // Callable analog
+
+				if (to - from < 10_000) {
+					//result.addAndGet(calcMoreEffective(from, to));
+					return calcMoreEffective(from, to);
+				} else {
+					int mid = (from + to) >>> 1;
+					TaskCollableAnalog taskLeft = new TaskCollableAnalog(from, mid,	result);
+					TaskCollableAnalog taskRight = new TaskCollableAnalog(mid, to,	result);
+					taskLeft.fork();
+					taskRight.fork();
+					return taskLeft.join() + taskRight.join();
+					//invokeAll(taskLeft, taskRight);
+				}
+			}
+
+		}
 
 }

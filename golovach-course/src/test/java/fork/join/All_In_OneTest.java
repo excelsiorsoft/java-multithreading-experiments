@@ -28,6 +28,9 @@ public class All_In_OneTest {
 		cut.recursivelyViaForkJoin(); //a lot faster
 	}
 	
+	@Test
+	public void recursivelyViaForkJoinRecursiveTask() throws InterruptedException {
+		cut.recursivelyViaForkJoinRecursiveTask(); //a lot faster
+	}
 	
-
 }
