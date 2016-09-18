@@ -12,7 +12,7 @@ import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class All_In_One {
+public class All_In_One { //associativity of summation is taken advantage of here, so this quality is important
 
 
 
@@ -175,14 +175,14 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 
 	}
 
-		public static class TaskCollableAnalog extends RecursiveTask<Long> {
+		public static class TaskCallableAnalog extends RecursiveTask<Long> {
 
 			private static final long serialVersionUID = 1L;
 			private final int from;
 			private final int to;
 			private final AtomicLong result;
 
-			public TaskCollableAnalog(int from, int to, AtomicLong result) {
+			public TaskCallableAnalog(int from, int to, AtomicLong result) {
 				this.from = from;
 				this.to = to;
 				this.result = result;
@@ -196,11 +196,11 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 					return calcMoreEffective(from, to);
 				} else {
 					int mid = (from + to) >>> 1;
-					TaskCollableAnalog taskLeft = new TaskCollableAnalog(from, mid,	result);
-					TaskCollableAnalog taskRight = new TaskCollableAnalog(mid, to,	result);
-					taskLeft.fork();
-					taskRight.fork();
-					return taskLeft.join() + taskRight.join();
+					TaskCallableAnalog taskLeft = new TaskCallableAnalog(from, mid,	result);
+					TaskCallableAnalog taskRight = new TaskCallableAnalog(mid, to,	result);
+					taskLeft.fork();  							//start asynch
+					taskRight.fork();							//start asynch
+					return taskLeft.join() + taskRight.join(); //analogous to Future.get()
 					//invokeAll(taskLeft, taskRight);
 				}
 			}
