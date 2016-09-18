@@ -33,4 +33,9 @@ public class All_In_OneTest {
 		cut.recursivelyViaForkJoinRecursiveTask(); //a lot faster
 	}
 	
+	@Test
+	public void viaStreams()  {//slower
+		cut.viaStreams(); 
+	}
+	
 }

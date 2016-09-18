@@ -11,6 +11,7 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.LongStream;
 
 public class All_In_One { //associativity of summation is taken advantage of here, so this quality is important
 
@@ -206,5 +207,19 @@ public void recursivelyViaForkJoin() throws InterruptedException {//recursive pa
 			}
 
 		}
+		
+	public void viaStreams()  {
+
+		long start = System.nanoTime();
+		
+		long result = LongStream.range(0, 1_000_000)
+				.parallel()
+				.filter(x -> x % 5 != 0)
+				.filter(x -> x % 3 != 0)
+				.sum();
+
+		long end = System.nanoTime();
+		System.out.println("viaStreams(): "+result + "; "+ (end - start)/1_000_000 +" ms");
+	}
 
 }
