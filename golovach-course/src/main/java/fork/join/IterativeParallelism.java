@@ -18,16 +18,18 @@ public class IterativeParallelism {
 		List<Callable<Void>>taskList = new ArrayList<>();
 		
 		for(int k = 0; k <100;k++) {
-			final int finalK = k;
+			final int finalK = k;  //effectively final is allowed as well
 			taskList.add(()->{
+				//[0...10,000), [10,000...20,000), ...
 				calc(result, 10_000 * finalK, 10_000 * (finalK + 1));
 				return null;
 			});
 		}
 		
-		pool.invokeAll(taskList);
+		pool.invokeAll(taskList); //blocking call
 		System.out.println(result);
 		pool.shutdown();
+
 	}
 	
 	
