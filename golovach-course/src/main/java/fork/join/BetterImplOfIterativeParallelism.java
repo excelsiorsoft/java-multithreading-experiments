@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class IterativeParallelism {
+public class BetterImplOfIterativeParallelism {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -22,7 +22,8 @@ public class IterativeParallelism {
 			final int finalK = k;  //effectively final is allowed as well
 			taskList.add(()->{
 				//[0...10,000), [10,000...20,000), ...
-				calc(result, 10_000 * finalK, 10_000 * (finalK + 1));
+				long localResult = calc(/*result, */10_000 * finalK, 10_000 * (finalK + 1));
+				result.addAndGet(localResult);
 				return null;
 			});
 		}
@@ -36,14 +37,15 @@ public class IterativeParallelism {
 	
 	
 
-	private static void calc(AtomicLong accum, int from, int to) {
-		
+	private static long calc(/*AtomicLong accum,*/ int from, int to) {
+		long result = 0;
 		for(int index = from; index < to; index++) {
 			if(index % 3 !=0 && index %5 != 0) {
-				accum.addAndGet(index);
+				/*accum.addAndGet(index);*/
+				result += index;
 			}
 		}
-		
+		return result;
 	}
 	
 }
