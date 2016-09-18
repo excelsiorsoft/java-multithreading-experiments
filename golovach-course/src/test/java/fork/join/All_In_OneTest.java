@@ -34,6 +34,7 @@ public class All_In_OneTest {
 	}
 	
 	@Test
+
 	public void viaStreams()  {//slower??
 		cut.viaStreams(); 
 	}
