@@ -188,6 +188,17 @@ public class Java8Examples {
 	Stream<Integer> stream = Stream.generate(()-> rnd.nextInt(8));
 	stream.distinct().limit(4).forEach(System.out::println);
 	
+	System.out.println("=========================");
+	Stream<Integer> stream0 = Stream.generate(()->{
+		System.out.println("get()"); //get is printed here
+		return 0;
+	});
+	
+	Stream<Integer> stream1 = stream0.filter(x -> x != 42);
+	Stream<String> stream2 = stream1.map(x -> " "+x);
+	Stream<String> stream3 = stream2.limit(3);
+	
+	stream3.forEach(System.out::println); //0 is printed here lazyly, if this line is commented, the `get()` will NOT get printed
 	}
 
 	public static void printHello() {
