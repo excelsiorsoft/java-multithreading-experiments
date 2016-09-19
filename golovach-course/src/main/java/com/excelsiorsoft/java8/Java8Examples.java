@@ -3,10 +3,11 @@ package com.excelsiorsoft.java8;
 import static java.util.stream.Stream.of;
 
 import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -163,6 +164,30 @@ public class Java8Examples {
 	System.out.println("=========================");
 	
 	
+	ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+	int cpuCount = Runtime.getRuntime().availableProcessors();
+	
+	map.put("a", "a");
+	map.put("b", "c");
+	map.put("c", "c");
+	map.put("d", "k");
+	
+	
+	String result0 =  map.search(cpuCount, (key, value)->key.equals(value)? key:null);//search only returns first match
+	
+	System.out.println("result0: "+result0);
+	
+	System.out.println("=========================");
+	
+	String result1 = map.reduceKeys(cpuCount, (key0, key1)->key0 + key1);
+	System.out.println("result1: "+result1);
+	
+	System.out.println("=========================");
+	
+	Random rnd = new Random(0);
+	Stream<Integer> stream = Stream.generate(()-> rnd.nextInt(8));
+	stream.distinct().limit(4).forEach(System.out::println);
+	
 	}
 
 	public static void printHello() {
@@ -238,4 +263,6 @@ public class Java8Examples {
 		R apply(T arg);
 	}
 
+	
+	
 }
